@@ -61,6 +61,78 @@ const salons = [
     phone: '(11) 96543-2109',
     hours: 'Seg-Sáb: 9h-20h',
     services: ['Corte', 'Coloração', 'Tratamentos']
+  },
+  {
+    id: 4,
+    name: 'Barbearia Classic',
+    image: salon1,
+    address: 'Rua do Comércio, 321 - Liberdade',
+    city: 'São Paulo',
+    rating: 4.6,
+    reviews: 156,
+    phone: '(11) 95432-1098',
+    hours: 'Seg-Sex: 8h-18h | Sáb: 8h-16h',
+    services: ['Corte Tradicional', 'Barba', 'Bigode']
+  },
+  {
+    id: 5,
+    name: 'Salão Glamour',
+    image: salon2,
+    address: 'Av. Brasil, 654 - Vila Madalena',
+    city: 'São Paulo',
+    rating: 4.8,
+    reviews: 312,
+    phone: '(11) 94321-0987',
+    hours: 'Seg-Sex: 9h-19h | Sáb: 9h-17h',
+    services: ['Corte Feminino', 'Pintura', 'Penteados']
+  },
+  {
+    id: 6,
+    name: 'Hair & Style',
+    image: salon3,
+    address: 'Rua das Palmeiras, 987 - Moema',
+    city: 'São Paulo',
+    rating: 4.5,
+    reviews: 78,
+    phone: '(11) 93210-9876',
+    hours: 'Seg-Sáb: 10h-20h',
+    services: ['Corte Moderno', 'Luzes', 'Alisamento']
+  },
+  {
+    id: 7,
+    name: 'Barbearia Moderna',
+    image: salon1,
+    address: 'Rua da Consolação, 456 - Consolação',
+    city: 'São Paulo',
+    rating: 4.9,
+    reviews: 267,
+    phone: '(11) 92109-8765',
+    hours: 'Seg-Sex: 7h-19h | Sáb: 8h-17h',
+    services: ['Corte Fade', 'Barba Desenhada', 'Sobrancelha']
+  },
+  {
+    id: 8,
+    name: 'Salão Encanto',
+    image: salon2,
+    address: 'Av. Faria Lima, 123 - Itaim Bibi',
+    city: 'São Paulo',
+    rating: 4.7,
+    reviews: 189,
+    phone: '(11) 91098-7654',
+    hours: 'Seg-Sex: 8h-20h | Sáb: 8h-18h',
+    services: ['Corte & Cor', 'Hidratação', 'Progressiva']
+  },
+  {
+    id: 9,
+    name: 'Studio Excellence',
+    image: salon3,
+    address: 'Rua Oscar Freire, 789 - Cerqueira César',
+    city: 'São Paulo',
+    rating: 4.8,
+    reviews: 145,
+    phone: '(11) 90987-6543',
+    hours: 'Seg-Sáb: 9h-21h',
+    services: ['Corte Executivo', 'Coloração Premium', 'Tratamento Capilar']
   }
 ]
 
