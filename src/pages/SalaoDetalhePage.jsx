@@ -110,6 +110,216 @@ const saloesDisponiveis = [
       abertura: "09:00",
       fechamento: "20:00"
     }
+  },
+  {
+    id: 4,
+    nome: "Barbearia Clássica",
+    endereco: "Rua do Comércio, 321 - Liberdade",
+    telefone: "(11) 95432-1098",
+    avaliacao: 4.6,
+    totalAvaliacoes: 156,
+    imagem: "/src/assets/salon1.jpg",
+    destaque: false,
+    descricao: "Barbearia clássica que preserva as tradições antigas. Ambiente nostálgico com serviços tradicionais.",
+    instagram: "@barbeariaclassica",
+    priceRange: "R$ 20 - R$ 60",
+    parking: false,
+    accessibility: false,
+    profissionais: [
+      { id: 8, nome: "Seu Antônio - Barbeiro Tradicional", especialidade: "Corte Navalhado", preco: 30, avatar: "👨‍🦳", status: "disponivel" },
+      { id: 9, nome: "Pedro Oliveira - Especialista", especialidade: "Barba Tradicional", preco: 25, avatar: "🧔‍♂️", status: "disponivel" }
+    ],
+    servicos: [
+      { id: 10, nome: "Corte Navalhado", preco: 30, tempo: "40min", popular: true, emoji: "🪒" },
+      { id: 11, nome: "Barba Tradicional", preco: 25, tempo: "25min", popular: true, emoji: "🧔" },
+      { id: 12, nome: "Relaxamento", preco: 60, tempo: "45min", popular: false, emoji: "💆‍♂️" }
+    ],
+    especialidades: ["Corte Navalhado", "Barba Tradicional", "Relaxamento"],
+    horarios: ["08:00", "08:30", "09:00", "09:30", "10:00", "14:00", "14:30", "15:00"],
+    filaEspera: [
+      { id: 9, cliente: "Antônio Silva", servico: "Corte Navalhado", profissional: "Seu Antônio", horario: "09:00", status: "confirmado" },
+      { id: 10, cliente: "José Santos", servico: "Barba Tradicional", profissional: "Pedro Oliveira", horario: "09:30", status: "aguardando" }
+    ],
+    horarioFuncionamento: {
+      abertura: "08:00",
+      fechamento: "18:00"
+    }
+  },
+  {
+    id: 5,
+    nome: "Salão Glamour",
+    endereco: "Av. Brasil, 654 - Vila Madalena",
+    telefone: "(11) 94321-0987",
+    avaliacao: 4.8,
+    totalAvaliacoes: 312,
+    imagem: "/src/assets/salon2.jpg",
+    destaque: true,
+    descricao: "Salão moderno e descontraído na Vila Madalena. Especializado em looks ousados e tendências da moda.",
+    instagram: "@salaoglamour",
+    priceRange: "R$ 40 - R$ 200",
+    parking: true,
+    accessibility: true,
+    profissionais: [
+      { id: 10, nome: "Carla Mendes - Cabeleireira", especialidade: "Luzes Balayage", preco: 80, avatar: "💁‍♀️", status: "disponivel" },
+      { id: 11, nome: "Julia Santos - Penteadista", especialidade: "Penteados para Festas", preco: 60, avatar: "👸", status: "disponivel" },
+      { id: 12, nome: "Amanda Lima - Colorista", especialidade: "Cortes Modernos", preco: 70, avatar: "🎨", status: "ocupado" }
+    ],
+    servicos: [
+      { id: 13, nome: "Luzes Balayage", preco: 80, tempo: "90min", popular: true, emoji: "✨" },
+      { id: 14, nome: "Cortes Modernos", preco: 70, tempo: "50min", popular: true, emoji: "✂️" },
+      { id: 15, nome: "Penteados para Festas", preco: 60, tempo: "60min", popular: false, emoji: "💄" }
+    ],
+    especialidades: ["Luzes Balayage", "Cortes Modernos", "Penteados para Festas"],
+    horarios: ["09:00", "09:30", "10:00", "10:30", "11:00", "13:00", "13:30", "14:00"],
+    filaEspera: [
+      { id: 11, cliente: "Mariana Costa", servico: "Luzes Balayage", profissional: "Carla Mendes", horario: "10:00", status: "confirmado" },
+      { id: 12, cliente: "Beatriz Lima", servico: "Cortes Modernos", profissional: "Amanda Lima", horario: "11:00", status: "aguardando" }
+    ],
+    horarioFuncionamento: {
+      abertura: "09:00",
+      fechamento: "19:00"
+    }
+  },
+  {
+    id: 6,
+    nome: "Cabelo & Estilo",
+    endereco: "Rua das Palmeiras, 987 - Moema",
+    telefone: "(11) 93210-9876",
+    avaliacao: 4.5,
+    totalAvaliacoes: 78,
+    imagem: "/src/assets/salon3.jpg",
+    destaque: false,
+    descricao: "Salão contemporâneo em Moema. Foco em técnicas modernas e atendimento personalizado.",
+    instagram: "@cabeloestilomemo",
+    priceRange: "R$ 50 - R$ 250",
+    parking: true,
+    accessibility: true,
+    profissionais: [
+      { id: 13, nome: "Marcos Reis - Cabeleireiro", especialidade: "Escova Progressiva", preco: 90, avatar: "👨‍🦱", status: "disponivel" },
+      { id: 14, nome: "Patrícia Costa - Especialista em Alisamento", especialidade: "Mechas Californianas", preco: 120, avatar: "👩‍🦰", status: "ocupado" }
+    ],
+    servicos: [
+      { id: 16, nome: "Escova Progressiva", preco: 90, tempo: "90min", popular: true, emoji: "💨" },
+      { id: 17, nome: "Mechas Californianas", preco: 120, tempo: "120min", popular: true, emoji: "🌟" },
+      { id: 18, nome: "Cortes Geométricos", preco: 80, tempo: "60min", popular: false, emoji: "📐" }
+    ],
+    especialidades: ["Escova Progressiva", "Mechas Californianas", "Cortes Geométricos"],
+    horarios: ["10:00", "10:30", "11:00", "14:00", "14:30", "15:00", "15:30", "16:00"],
+    filaEspera: [
+      { id: 13, cliente: "Fernanda Silva", servico: "Escova Progressiva", profissional: "Marcos Reis", horario: "14:00", status: "confirmado" },
+      { id: 14, cliente: "Carolina Santos", servico: "Mechas Californianas", profissional: "Patrícia Costa", horario: "15:00", status: "aguardando" }
+    ],
+    horarioFuncionamento: {
+      abertura: "10:00",
+      fechamento: "20:00"
+    }
+  },
+  {
+    id: 7,
+    nome: "Barbearia Moderna",
+    endereco: "Rua da Consolação, 456 - Consolação",
+    telefone: "(11) 92109-8765",
+    avaliacao: 4.9,
+    totalAvaliacoes: 267,
+    imagem: "/src/assets/salon1.jpg",
+    destaque: true,
+    descricao: "Barbearia moderna com estilo urbano. Especializada em cortes contemporâneos e design de barba.",
+    instagram: "@barbeariamoderna",
+    priceRange: "R$ 35 - R$ 90",
+    parking: false,
+    accessibility: true,
+    profissionais: [
+      { id: 15, nome: "Diego Silva - Barbeiro Especialista", especialidade: "Fade Degradê", preco: 50, avatar: "👨‍🎤", status: "disponivel" },
+      { id: 16, nome: "Rafael Santos - Especialista em Degradê", especialidade: "Barba Estilizada", preco: 40, avatar: "🕺", status: "disponivel" },
+      { id: 17, nome: "Lucas Oliveira - Design", especialidade: "Design de Sobrancelha Masculina", preco: 35, avatar: "🎨", status: "ocupado" }
+    ],
+    servicos: [
+      { id: 19, nome: "Fade Degradê", preco: 50, tempo: "45min", popular: true, emoji: "⚡" },
+      { id: 20, nome: "Barba Estilizada", preco: 40, tempo: "30min", popular: true, emoji: "✨" },
+      { id: 21, nome: "Design de Sobrancelha Masculina", preco: 35, tempo: "20min", popular: false, emoji: "👁️" }
+    ],
+    especialidades: ["Fade Degradê", "Barba Estilizada", "Design de Sobrancelha Masculina"],
+    horarios: ["07:00", "07:30", "08:00", "08:30", "09:00", "13:00", "13:30", "14:00"],
+    filaEspera: [
+      { id: 15, cliente: "Gabriel Costa", servico: "Fade Degradê", profissional: "Diego Silva", horario: "08:00", status: "confirmado" },
+      { id: 16, cliente: "Thiago Lima", servico: "Barba Estilizada", profissional: "Rafael Santos", horario: "08:30", status: "confirmado" },
+      { id: 17, cliente: "Bruno Santos", servico: "Design de Sobrancelha", profissional: "Lucas Oliveira", horario: "09:00", status: "aguardando" }
+    ],
+    horarioFuncionamento: {
+      abertura: "07:00",
+      fechamento: "19:00"
+    }
+  },
+  {
+    id: 8,
+    nome: "Salão Encanto",
+    endereco: "Av. Faria Lima, 123 - Itaim Bibi",
+    telefone: "(11) 91098-7654",
+    avaliacao: 4.7,
+    totalAvaliacoes: 189,
+    imagem: "/src/assets/salon2.jpg",
+    destaque: false,
+    descricao: "Salão sofisticado no coração empresarial de SP. Atendimento executive com agendamento prioritário.",
+    instagram: "@salaoencanto",
+    priceRange: "R$ 60 - R$ 350",
+    parking: true,
+    accessibility: true,
+    profissionais: [
+      { id: 18, nome: "Vanessa Lima - Colorista Master", especialidade: "Hidratação Profunda", preco: 120, avatar: "💆‍♀️", status: "disponivel" },
+      { id: 19, nome: "Rodrigo Alves - Especialista Capilar", especialidade: "Progressiva Orgânica", preco: 150, avatar: "🧴", status: "ocupado" },
+      { id: 20, nome: "Camila Santos - Tratamentos", especialidade: "Corte & Cor Premium", preco: 200, avatar: "✨", status: "disponivel" }
+    ],
+    servicos: [
+      { id: 22, nome: "Hidratação Profunda", preco: 120, tempo: "90min", popular: true, emoji: "💧" },
+      { id: 23, nome: "Progressiva Orgânica", preco: 150, tempo: "120min", popular: true, emoji: "🌿" },
+      { id: 24, nome: "Corte & Cor Premium", preco: 200, tempo: "150min", popular: false, emoji: "💎" }
+    ],
+    especialidades: ["Hidratação Profunda", "Progressiva Orgânica", "Corte & Cor Premium"],
+    horarios: ["08:00", "09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"],
+    filaEspera: [
+      { id: 18, cliente: "Isabela Costa", servico: "Hidratação Profunda", profissional: "Vanessa Lima", horario: "09:00", status: "confirmado" },
+      { id: 19, cliente: "Renata Silva", servico: "Progressiva Orgânica", profissional: "Rodrigo Alves", horario: "10:00", status: "aguardando" },
+      { id: 20, cliente: "Priscila Santos", servico: "Corte & Cor Premium", profissional: "Camila Santos", horario: "14:00", status: "confirmado" }
+    ],
+    horarioFuncionamento: {
+      abertura: "08:00",
+      fechamento: "20:00"
+    }
+  },
+  {
+    id: 9,
+    nome: "Studio Excellence",
+    endereco: "Rua Oscar Freire, 789 - Cerqueira César",
+    telefone: "(11) 90987-6543",
+    avaliacao: 4.8,
+    totalAvaliacoes: 145,
+    imagem: "/src/assets/salon3.jpg",
+    destaque: true,
+    descricao: "Studio de alta qualidade na Oscar Freire. Atendimento VIP com produtos importados e técnicas exclusivas.",
+    instagram: "@studioexcellence",
+    priceRange: "R$ 100 - R$ 500",
+    parking: true,
+    accessibility: true,
+    profissionais: [
+      { id: 21, nome: "Alessandro Martins - Diretor Criativo", especialidade: "Corte Executivo", preco: 250, avatar: "👑", status: "disponivel" },
+      { id: 22, nome: "Bianca Ferreira - Especialista em Cor", especialidade: "Coloração com Olaplex", preco: 300, avatar: "🎨", status: "ocupado" },
+      { id: 23, nome: "Thiago Costa - Cabeleireiro Master", especialidade: "Tratamento Botox Capilar", preco: 200, avatar: "💉", status: "disponivel" }
+    ],
+    servicos: [
+      { id: 25, nome: "Corte Executivo", preco: 250, tempo: "60min", popular: true, emoji: "💼" },
+      { id: 26, nome: "Coloração com Olaplex", preco: 300, tempo: "180min", popular: true, emoji: "🧪" },
+      { id: 27, nome: "Tratamento Botox Capilar", preco: 200, tempo: "120min", popular: false, emoji: "💉" }
+    ],
+    especialidades: ["Corte Executivo", "Coloração com Olaplex", "Tratamento Botox Capilar"],
+    horarios: ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"],
+    filaEspera: [
+      { id: 21, cliente: "Adriana Costa", servico: "Corte Executivo", profissional: "Alessandro Martins", horario: "10:30", status: "confirmado" },
+      { id: 22, cliente: "Daniela Silva", servico: "Coloração com Olaplex", profissional: "Bianca Ferreira", horario: "14:00", status: "aguardando" }
+    ],
+    horarioFuncionamento: {
+      abertura: "09:00",
+      fechamento: "21:00"
+    }
   }
 ]
 
