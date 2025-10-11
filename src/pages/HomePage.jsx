@@ -254,7 +254,7 @@ function HomePage() {
   return (
     <div className="w-full">
       {/* Carrossel */}
-      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+      <section className="relative h-[350px] md:h-[450px] overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
