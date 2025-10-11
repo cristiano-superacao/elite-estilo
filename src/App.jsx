@@ -114,16 +114,16 @@ function App() {
           <Route path="/salao/:salaoId" element={<SalaoDetalhePage />} />
         </Routes>
         {/* Footer */}
-        <footer className="bg-gray-900 text-white py-12 mt-20">
+        <footer className="bg-gray-900 text-white py-8 mt-12">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {/* Logo e Descrição */}
               <div className="col-span-1 md:col-span-2">
-                <div className="flex items-center gap-2 text-2xl font-bold mb-4">
+                <div className="flex items-center gap-2 text-2xl font-bold mb-3">
                   <Scissors className="w-8 h-8" />
                   <span>Elite & Estilo</span>
                 </div>
-                <p className="text-gray-400 mb-4">
+                <p className="text-gray-400 mb-3">
                   Sistema de gestão completo para barbearias e salões de beleza. 
                   Conectando profissionais e clientes de forma simples e eficiente.
                 </p>
@@ -131,7 +131,7 @@ function App() {
 
               {/* Links Rápidos */}
               <div>
-                <h3 className="font-bold text-lg mb-4">Links Rápidos</h3>
+                <h3 className="font-bold text-lg mb-3">Links Rápidos</h3>
                 <ul className="space-y-2 text-gray-400">
                   <li><Link to="/" className="hover:text-white transition-colors">Início</Link></li>
                   <li><Link to="/planos" className="hover:text-white transition-colors">Planos</Link></li>
@@ -142,7 +142,7 @@ function App() {
 
               {/* Contato */}
               <div>
-                <h3 className="font-bold text-lg mb-4">Contato</h3>
+                <h3 className="font-bold text-lg mb-3">Contato</h3>
                 <ul className="space-y-2 text-gray-400">
                   <li className="flex items-center gap-2">
                     <MessageCircle className="w-4 h-4" />
@@ -160,7 +160,7 @@ function App() {
               </div>
             </div>
 
-            <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <div className="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400">
               <p>&copy; 2025 Elite & Estilo. Todos os direitos reservados.</p>
             </div>
           </div>
