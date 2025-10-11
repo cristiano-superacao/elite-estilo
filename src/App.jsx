@@ -8,6 +8,7 @@ import AgendamentoPage from './pages/AgendamentoPage.jsx'
 import CadastroSalaoPage from './pages/CadastroSalaoPage.jsx'
 import DashboardSalaoPage from './pages/DashboardSalaoPage.jsx'
 import SalaoDetalhePage from './pages/SalaoDetalhePage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
 import './App.css'
 
 function App() {
@@ -42,9 +43,9 @@ function App() {
                 </a>
                 <Button 
                   className="ml-4"
-                  onClick={() => window.location.href = '/agendamento'}
+                  onClick={() => window.location.href = '/login'}
                 >
-                  Agendar Agora
+                  Entrar
                 </Button>
               </div>
 
@@ -92,10 +93,10 @@ function App() {
                   className="w-full"
                   onClick={() => {
                     setIsMenuOpen(false);
-                    window.location.href = '/agendamento';
+                    window.location.href = '/login';
                   }}
                 >
-                  Agendar Agora
+                  Entrar
                 </Button>
               </div>
             )}
@@ -106,6 +107,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/planos" element={<PlansPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/agendamento" element={<AgendamentoPage />} />
           <Route path="/cadastro-salao" element={<CadastroSalaoPage />} />
           <Route path="/dashboard-salao" element={<DashboardSalaoPage />} />

@@ -1,9 +1,33 @@
-import { useState } from 'react'
-import { Calendar, Users, Clock, Star, Plus, Eye, MessageCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Calendar, Users, Clock, Star, Plus, Eye, MessageCircle, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button.jsx'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 function DashboardSalaoPage() {
+  const navigate = useNavigate()
+  const [salaoNome, setSalaoNome] = useState('')
+  
+  // Verificar autenticação
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem('userLoggedIn')
+    const storedSalaoNome = localStorage.getItem('salaoNome')
+    
+    if (!userLoggedIn) {
+      navigate('/login')
+      return
+    }
+    
+    setSalaoNome(storedSalaoNome || 'Meu Salão')
+  }, [navigate])
+
+  const handleLogout = () => {
+    localStorage.removeItem('userLoggedIn')
+    localStorage.removeItem('userEmail')
+    localStorage.removeItem('salaoNome')
+    navigate('/login')
+  }
+
   const [filaEspera] = useState([
     { id: 1, cliente: "João Silva", servico: "Corte + Barba", profissional: "Carlos", horario: "14:30", status: "aguardando" },
     { id: 2, cliente: "Maria Santos", servico: "Escova", profissional: "Ana", horario: "15:00", status: "confirmado" },
@@ -28,7 +52,7 @@ function DashboardSalaoPage() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Barbearia Elite</h1>
+              <h1 className="text-2xl font-bold text-gray-900">{salaoNome}</h1>
               <p className="text-gray-600">Dashboard do Salão</p>
             </div>
             <div className="flex items-center gap-4">
@@ -36,6 +60,15 @@ function DashboardSalaoPage() {
                 <p className="text-sm text-gray-600">Hoje</p>
                 <p className="font-semibold">{new Date().toLocaleDateString('pt-BR')}</p>
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Sair
+              </Button>
             </div>
           </div>
         </div>

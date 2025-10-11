@@ -160,9 +160,9 @@ function HomePage() {
                   <Button 
                     size="lg" 
                     className="text-lg px-8 py-6"
-                    onClick={() => navigate('/planos')}
+                    onClick={() => navigate('/login')}
                   >
-                    Começar Agora
+                    Entrar
                   </Button>
                 </motion.div>
               </div>

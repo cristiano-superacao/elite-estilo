@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Upload, MapPin, Phone, Mail, Clock, Plus, X, User, Scissors, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button.jsx'
 import { useNavigate } from 'react-router-dom'
@@ -19,6 +19,20 @@ function CadastroSalaoPage() {
     descricao: '',
     imagem: null
   })
+
+  // Verificar se há dados de login armazenados
+  useEffect(() => {
+    const userEmail = localStorage.getItem('userEmail')
+    const salaoNome = localStorage.getItem('salaoNome')
+    
+    if (userEmail) {
+      setDadosSalao(prev => ({
+        ...prev,
+        email: userEmail,
+        nome: salaoNome || ''
+      }))
+    }
+  }, [])
 
   const [servicos, setServicos] = useState([
     { id: 1, nome: '', preco: '', tempo: '' }
