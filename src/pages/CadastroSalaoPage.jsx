@@ -101,6 +101,35 @@ function CadastroSalaoPage() {
       profissionais: profissionais.filter(p => p.nome && p.especialidade)
     }
 
+    // Salvar no localStorage para aparecer na HomePage
+    const saloesExistentes = JSON.parse(localStorage.getItem('saloesCadastrados') || '[]')
+    const novoSalao = {
+      id: Date.now(), // ID único baseado no timestamp
+      name: dados.salao.nome,
+      image: '/src/assets/salon1.jpg', // Imagem padrão
+      address: dados.salao.endereco,
+      city: 'São Paulo', // Cidade padrão
+      rating: 5.0, // Rating inicial
+      reviews: 0, // Sem reviews inicialmente
+      phone: dados.salao.telefone,
+      hours: `${dados.salao.horarioFuncionamento.abertura} às ${dados.salao.horarioFuncionamento.fechamento}`,
+      services: dados.servicos.map(s => s.nome),
+      description: dados.salao.descricao || 'Salão cadastrado via Elite & Estilo',
+      specialties: dados.servicos.map(s => s.nome).slice(0, 3),
+      professionals: dados.profissionais.map(p => `${p.nome} - ${p.especialidade}`),
+      priceRange: dados.servicos.length > 0 ? 
+        `R$ ${Math.min(...dados.servicos.map(s => parseInt(s.preco) || 0))} - R$ ${Math.max(...dados.servicos.map(s => parseInt(s.preco) || 0))}` : 
+        'R$ 30 - R$ 100',
+      parking: true,
+      accessibility: true,
+      instagram: `@${dados.salao.nome.toLowerCase().replace(/\s+/g, '')}`,
+      email: dados.salao.email,
+      cadastradoPeloSite: true
+    }
+    
+    saloesExistentes.push(novoSalao)
+    localStorage.setItem('saloesCadastrados', JSON.stringify(saloesExistentes))
+
     const message = encodeURIComponent(
       `🏪 *CADASTRO DE SALÃO - Elite & Estilo*\n\n` +
       `📋 *Dados do Salão:*\n` +
@@ -116,7 +145,15 @@ function CadastroSalaoPage() {
       `Gostaria de finalizar o cadastro e receber as informações para configurar minha página no Elite & Estilo!`
     )
 
+    // Mostrar mensagem de sucesso
+    alert('✅ Salão cadastrado com sucesso! Agora aparecerá na lista de salões.')
+
     window.open(`https://wa.me/5571993372960?text=${message}`, '_blank')
+    
+    // Redirecionar para a página inicial após 2 segundos
+    setTimeout(() => {
+      navigate('/')
+    }, 2000)
   }
 
   const renderDados = () => (

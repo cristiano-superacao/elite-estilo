@@ -234,7 +234,15 @@ const promotions = [
 
 function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [allSalons, setAllSalons] = useState(salons)
   const navigate = useNavigate()
+
+  // Carregar salões cadastrados do localStorage
+  useEffect(() => {
+    const saloesDoLocalStorage = JSON.parse(localStorage.getItem('saloesCadastrados') || '[]')
+    const todosSaloes = [...salons, ...saloesDoLocalStorage]
+    setAllSalons(todosSaloes)
+  }, [])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -343,7 +351,7 @@ function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {salons.map((salon) => (
+          {allSalons.map((salon) => (
             <motion.div
               key={salon.id}
               initial={{ opacity: 0, y: 20 }}
@@ -362,6 +370,11 @@ function HomePage() {
                   <span className="font-semibold">{salon.rating}</span>
                   <span className="text-sm text-muted-foreground">({salon.reviews})</span>
                 </div>
+                {salon.cadastradoPeloSite && (
+                  <div className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                    🆕 Novo
+                  </div>
+                )}
               </div>
 
               <div className="p-6">
