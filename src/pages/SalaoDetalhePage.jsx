@@ -25,9 +25,9 @@ const saloesDisponiveis = [
       { id: 2, nome: "João Santos - Especialista em Barba", especialidade: "Barba", preco: 25, avatar: "👨‍🦲", status: "ocupado" }
     ],
     servicos: [
-      { id: 1, nome: "Corte Social", preco: 35, tempo: "30min", popular: true },
-      { id: 2, nome: "Barba Completa", preco: 25, tempo: "20min", popular: true },
-      { id: 3, nome: "Pigmentação", preco: 80, tempo: "60min", popular: false }
+      { id: 1, nome: "Corte Social", preco: 35, tempo: "30min", popular: true, emoji: "✂️" },
+      { id: 2, nome: "Barba Completa", preco: 25, tempo: "20min", popular: true, emoji: "🧔" },
+      { id: 3, nome: "Pigmentação", preco: 80, tempo: "60min", popular: false, emoji: "🖌️" }
     ],
     especialidades: ["Corte Social", "Barba Completa", "Pigmentação"],
     horarios: ["09:00", "09:30", "10:00", "10:30", "11:00", "14:00", "14:30", "15:00"],
@@ -56,14 +56,14 @@ const saloesDisponiveis = [
     parking: false,
     accessibility: true,
     profissionais: [
-      { id: 3, nome: "Ana Costa - Hair Stylist", especialidade: "Corte & Escova", preco: 45, avatar: "👩‍🦱", status: "disponivel" },
-      { id: 4, nome: "Maria Silva - Nail Designer", especialidade: "Manicure Francesa", preco: 30, avatar: "💅", status: "disponivel" },
+      { id: 3, nome: "Ana Costa - Cabeleireira", especialidade: "Corte & Escova", preco: 45, avatar: "👩‍🦱", status: "disponivel" },
+      { id: 4, nome: "Maria Silva - Designer de Unhas", especialidade: "Manicure Francesa", preco: 30, avatar: "💅", status: "disponivel" },
       { id: 5, nome: "Lucia Santos - Colorista", especialidade: "Tratamentos Capilares", preco: 80, avatar: "✨", status: "ocupado" }
     ],
     servicos: [
-      { id: 4, nome: "Corte & Escova", preco: 45, tempo: "45min", popular: true },
-      { id: 5, nome: "Manicure Francesa", preco: 30, tempo: "30min", popular: true },
-      { id: 6, nome: "Tratamentos Capilares", preco: 80, tempo: "60min", popular: false }
+      { id: 4, nome: "Corte & Escova", preco: 45, tempo: "45min", popular: true, emoji: "✂️" },
+      { id: 5, nome: "Manicure Francesa", preco: 30, tempo: "30min", popular: true, emoji: "💅" },
+      { id: 6, nome: "Tratamentos Capilares", preco: 80, tempo: "60min", popular: false, emoji: "✨" }
     ],
     especialidades: ["Corte & Escova", "Manicure Francesa", "Tratamentos Capilares"],
     horarios: ["08:00", "08:30", "09:00", "09:30", "10:00", "13:00", "13:30", "14:00"],
@@ -79,7 +79,7 @@ const saloesDisponiveis = [
   },
   {
     id: 3,
-    nome: "Studio Hair Premium",
+    nome: "Studio Cabelo Premium",
     endereco: "Rua Augusta, 789 - Jardins",
     telefone: "(11) 96543-2109",
     avaliacao: 4.7,
@@ -87,18 +87,18 @@ const saloesDisponiveis = [
     imagem: "/src/assets/salon3.jpg",
     destaque: false,
     descricao: "Studio moderno focado em transformações capilares. Utilizamos produtos premium e técnicas avançadas.",
-    instagram: "@studiohairpremium",
+    instagram: "@studiocabelopremium",
     priceRange: "R$ 80 - R$ 300",
     parking: true,
     accessibility: true,
     profissionais: [
-      { id: 6, nome: "Roberto Lima - Colorista Expert", especialidade: "Coloração Artística", preco: 150, avatar: "🎨", status: "ocupado" },
-      { id: 7, nome: "Fernanda Costa - Hair Designer", especialidade: "Cortes Autorais", preco: 100, avatar: "✂️", status: "disponivel" }
+      { id: 6, nome: "Roberto Lima - Colorista Especialista", especialidade: "Coloração Artística", preco: 150, avatar: "🎨", status: "ocupado" },
+      { id: 7, nome: "Fernanda Costa - Designer Capilar", especialidade: "Cortes Autorais", preco: 100, avatar: "✂️", status: "disponivel" }
     ],
     servicos: [
-      { id: 7, nome: "Coloração Artística", preco: 150, tempo: "90min", popular: true },
-      { id: 8, nome: "Cortes Autorais", preco: 100, tempo: "60min", popular: true },
-      { id: 9, nome: "Reconstrução Capilar", preco: 200, tempo: "120min", popular: false }
+      { id: 7, nome: "Coloração Artística", preco: 150, tempo: "90min", popular: true, emoji: "🎨" },
+      { id: 8, nome: "Cortes Autorais", preco: 100, tempo: "60min", popular: true, emoji: "✂️" },
+      { id: 9, nome: "Reconstrução Capilar", preco: 200, tempo: "120min", popular: false, emoji: "✨" }
     ],
     especialidades: ["Coloração Artística", "Cortes Autorais", "Reconstrução Capilar"],
     horarios: ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"],
@@ -116,7 +116,7 @@ const saloesDisponiveis = [
 function SalaoDetalhePage() {
   const navigate = useNavigate()
   const { salaoId } = useParams()
-  const [abaSelecionada, setAbaSelecionada] = useState('espera') // espera, servicos, profissionais
+  const [abaSelecionada, setAbaSelecionada] = useState('servicos') // servicos, espera, profissionais
 
   const salao = saloesDisponiveis.find(s => s.id === parseInt(salaoId))
 
@@ -285,16 +285,6 @@ function SalaoDetalhePage() {
           <div className="border-b">
             <nav className="flex">
               <button
-                onClick={() => setAbaSelecionada('espera')}
-                className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
-                  abaSelecionada === 'espera'
-                    ? 'border-primary text-primary bg-primary/5'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                🕐 Mural de Espera ({salao.filaEspera.length})
-              </button>
-              <button
                 onClick={() => setAbaSelecionada('servicos')}
                 className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
                   abaSelecionada === 'servicos'
@@ -302,7 +292,17 @@ function SalaoDetalhePage() {
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                ✂️ Mural de Serviços ({salao.servicos.length})
+                ✂️ Serviços Oferecidos ({salao.servicos.length})
+              </button>
+              <button
+                onClick={() => setAbaSelecionada('espera')}
+                className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                  abaSelecionada === 'espera'
+                    ? 'border-primary text-primary bg-primary/5'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                🕐 Fila de Espera ({salao.filaEspera.length})
               </button>
               <button
                 onClick={() => setAbaSelecionada('profissionais')}
@@ -319,6 +319,74 @@ function SalaoDetalhePage() {
 
           {/* Conteúdo das Abas */}
           <div className="p-6">
+            {abaSelecionada === 'servicos' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-4"
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-lg font-semibold">Serviços Oferecidos</h3>
+                  <Button 
+                    onClick={() => alert('Funcionalidade de adicionar novo serviço em desenvolvimento')}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    + Novo Serviço
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {salao.servicos.map((servico) => (
+                    <div key={servico.id} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                      {/* Imagem do Serviço */}
+                      <div className="h-48 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                        <div className="text-6xl">
+                          {servico.emoji || '💼'}
+                        </div>
+                      </div>
+                      
+                      <div className="p-4">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-semibold text-lg">{servico.nome}</h4>
+                          {servico.popular && (
+                            <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">
+                              🔥 Popular
+                            </span>
+                          )}
+                        </div>
+                        
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-2xl font-bold text-primary">R$ {servico.preco}</span>
+                          <span className="text-sm text-gray-500 flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            {servico.tempo}
+                          </span>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            className="flex-1"
+                            onClick={iniciarAgendamento}
+                          >
+                            Agendar Este Serviço
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="px-3"
+                            onClick={() => alert('Funcionalidade de editar serviço em desenvolvimento')}
+                          >
+                            ✏️
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {abaSelecionada === 'espera' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -366,84 +434,71 @@ function SalaoDetalhePage() {
               </motion.div>
             )}
 
-            {abaSelecionada === 'servicos' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-4"
-              >
-                <h3 className="text-lg font-semibold mb-4">Serviços Disponíveis</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {salao.servicos.map((servico) => (
-                    <div key={servico.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-semibold">{servico.nome}</h4>
-                        {servico.popular && (
-                          <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">
-                            🔥 Popular
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold text-primary">R$ {servico.preco}</span>
-                        <span className="text-sm text-gray-500 flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {servico.tempo}
-                        </span>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        className="w-full mt-3"
-                        onClick={iniciarAgendamento}
-                      >
-                        Agendar Este Serviço
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
             {abaSelecionada === 'profissionais' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-4"
               >
-                <h3 className="text-lg font-semibold mb-4">Nossa Equipe</h3>
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-lg font-semibold">Nossa Equipe</h3>
+                  <Button 
+                    onClick={() => alert('Funcionalidade de adicionar novo profissional em desenvolvimento')}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    + Adicionar
+                  </Button>
+                </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {salao.profissionais.map((profissional) => (
-                    <div key={profissional.id} className="border rounded-lg p-6">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-2xl">
+                    <div key={profissional.id} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                      {/* Foto do Profissional */}
+                      <div className="h-48 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                        <div className="text-6xl">
                           {profissional.avatar}
                         </div>
-                        <div>
-                          <h4 className="text-lg font-semibold">{profissional.nome}</h4>
-                          <p className="text-gray-600">{profissional.especialidade}</p>
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            profissional.status === 'disponivel' 
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {profissional.status === 'disponivel' ? '🟢 Disponível' : '🔴 Ocupado'}
-                          </span>
+                      </div>
+                      
+                      <div className="p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                          <div>
+                            <h4 className="text-lg font-semibold">{profissional.nome}</h4>
+                            <p className="text-gray-600">{profissional.especialidade}</p>
+                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              profissional.status === 'disponivel' 
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-red-100 text-red-800'
+                            }`}>
+                              {profissional.status === 'disponivel' ? '🟢 Disponível' : '🔴 Ocupado'}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-sm text-gray-500">A partir de</span>
+                          <span className="text-lg font-bold text-primary">R$ {profissional.preco}</span>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            className="flex-1"
+                            onClick={iniciarAgendamento}
+                            disabled={profissional.status === 'ocupado'}
+                          >
+                            {profissional.status === 'disponivel' ? 'Agendar com Este Profissional' : 'Indisponível'}
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="px-3"
+                            onClick={() => alert('Funcionalidade de editar profissional em desenvolvimento')}
+                          >
+                            ✏️
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">A partir de</span>
-                        <span className="text-lg font-bold text-primary">R$ {profissional.preco}</span>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        className="w-full mt-4"
-                        onClick={iniciarAgendamento}
-                        disabled={profissional.status === 'ocupado'}
-                      >
-                        {profissional.status === 'disponivel' ? 'Agendar com Este Profissional' : 'Indisponível'}
-                      </Button>
                     </div>
                   ))}
                 </div>

@@ -58,7 +58,7 @@ const salons = [
     services: ['Corte Feminino', 'Manicure', 'Escova'],
     description: 'Salão feminino completo com atendimento personalizado. Ambiente aconchegante e profissionais altamente qualificados.',
     specialties: ['Corte & Escova', 'Manicure Francesa', 'Tratamentos Capilares'],
-    professionals: ['Ana Costa - Hair Stylist', 'Maria Silva - Nail Designer', 'Lucia Santos - Colorista'],
+    professionals: ['Ana Costa - Cabeleireira', 'Maria Silva - Designer de Unhas', 'Lucia Santos - Colorista'],
     priceRange: 'R$ 30 - R$ 150',
     parking: false,
     accessibility: true,
@@ -66,7 +66,7 @@ const salons = [
   },
   {
     id: 3,
-    name: 'Studio Hair Premium',
+    name: 'Studio Cabelo Premium',
     image: salon3,
     address: 'Rua Augusta, 789 - Jardins',
     city: 'São Paulo',
@@ -77,15 +77,15 @@ const salons = [
     services: ['Corte', 'Coloração', 'Tratamentos'],
     description: 'Studio moderno focado em transformações capilares. Utilizamos produtos premium e técnicas avançadas.',
     specialties: ['Coloração Artística', 'Cortes Autorais', 'Reconstrução Capilar'],
-    professionals: ['Roberto Lima - Colorista Expert', 'Fernanda Costa - Hair Designer'],
+    professionals: ['Roberto Lima - Colorista Especialista', 'Fernanda Costa - Designer Capilar'],
     priceRange: 'R$ 80 - R$ 300',
     parking: true,
     accessibility: true,
-    instagram: '@studiohairpremium'
+    instagram: '@studiocabelopremium'
   },
   {
     id: 4,
-    name: 'Barbearia Classic',
+    name: 'Barbearia Clássica',
     image: salon1,
     address: 'Rua do Comércio, 321 - Liberdade',
     city: 'São Paulo',
@@ -100,7 +100,7 @@ const salons = [
     priceRange: 'R$ 20 - R$ 60',
     parking: false,
     accessibility: false,
-    instagram: '@barbeariaclassic'
+    instagram: '@barbeariaclassica'
   },
   {
     id: 5,
@@ -123,7 +123,7 @@ const salons = [
   },
   {
     id: 6,
-    name: 'Hair & Style',
+    name: 'Cabelo & Estilo',
     image: salon3,
     address: 'Rua das Palmeiras, 987 - Moema',
     city: 'São Paulo',
@@ -133,12 +133,12 @@ const salons = [
     hours: 'Seg-Sáb: 10h-20h',
     services: ['Corte Moderno', 'Luzes', 'Alisamento'],
     description: 'Salão contemporâneo em Moema. Foco em técnicas modernas e atendimento personalizado.',
-    specialties: ['Progressive Brush', 'Mechas Californianas', 'Cortes Geométricos'],
-    professionals: ['Marcos Reis - Hair Stylist', 'Patrícia Costa - Alisamento Expert'],
+    specialties: ['Escova Progressiva', 'Mechas Californianas', 'Cortes Geométricos'],
+    professionals: ['Marcos Reis - Cabeleireiro', 'Patrícia Costa - Especialista em Alisamento'],
     priceRange: 'R$ 50 - R$ 250',
     parking: true,
     accessibility: true,
-    instagram: '@hairstylemoema'
+    instagram: '@cabeloestilomemo'
   },
   {
     id: 7,
@@ -153,7 +153,7 @@ const salons = [
     services: ['Corte Fade', 'Barba Desenhada', 'Sobrancelha'],
     description: 'Barbearia moderna com estilo urbano. Especializada em cortes contemporâneos e design de barba.',
     specialties: ['Fade Degradê', 'Barba Estilizada', 'Design de Sobrancelha Masculina'],
-    professionals: ['Diego Silva - Barber Expert', 'Rafael Santos - Fade Specialist', 'Lucas Oliveira - Design'],
+    professionals: ['Diego Silva - Barbeiro Especialista', 'Rafael Santos - Especialista em Degradê', 'Lucas Oliveira - Design'],
     priceRange: 'R$ 35 - R$ 90',
     parking: false,
     accessibility: true,
@@ -172,7 +172,7 @@ const salons = [
     services: ['Corte & Cor', 'Hidratação', 'Progressiva'],
     description: 'Salão sofisticado no coração empresarial de SP. Atendimento executive com agendamento prioritário.',
     specialties: ['Hidratação Profunda', 'Progressiva Orgânica', 'Corte & Cor Premium'],
-    professionals: ['Vanessa Lima - Master Colorista', 'Rodrigo Alves - Hair Expert', 'Camila Santos - Tratamentos'],
+    professionals: ['Vanessa Lima - Colorista Master', 'Rodrigo Alves - Especialista Capilar', 'Camila Santos - Tratamentos'],
     priceRange: 'R$ 60 - R$ 350',
     parking: true,
     accessibility: true,
@@ -191,7 +191,7 @@ const salons = [
     services: ['Corte Executivo', 'Coloração Premium', 'Tratamento Capilar'],
     description: 'Studio de alta qualidade na Oscar Freire. Atendimento VIP com produtos importados e técnicas exclusivas.',
     specialties: ['Corte Executivo', 'Coloração com Olaplex', 'Tratamento Botox Capilar'],
-    professionals: ['Alessandro Martins - Creative Director', 'Bianca Ferreira - Color Specialist', 'Thiago Costa - Master Stylist'],
+    professionals: ['Alessandro Martins - Diretor Criativo', 'Bianca Ferreira - Especialista em Cor', 'Thiago Costa - Cabeleireiro Master'],
     priceRange: 'R$ 100 - R$ 500',
     parking: true,
     accessibility: true,
@@ -222,7 +222,7 @@ const promotions = [
   },
   {
     id: 3,
-    salon: 'Studio Hair Premium',
+    salon: 'Studio Cabelo Premium',
     title: 'Pacote Completo',
     originalPrice: 200,
     discountPrice: 150,

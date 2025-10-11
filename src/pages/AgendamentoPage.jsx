@@ -59,7 +59,7 @@ const saloesDisponiveis = [
   },
   {
     id: 3,
-    nome: "Studio Hair Premium",
+    nome: "Studio Cabelo Premium",
     endereco: "Rua dos Artistas, 789 - Barra",
     telefone: "(71) 3333-3333",
     avaliacao: 4.7,
