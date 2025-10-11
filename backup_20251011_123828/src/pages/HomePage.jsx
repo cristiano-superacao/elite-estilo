@@ -36,14 +36,7 @@ const salons = [
     reviews: 127,
     phone: '(11) 98765-4321',
     hours: 'Seg-Sex: 9h-20h | Sáb: 9h-18h',
-    services: ['Corte Masculino', 'Barba', 'Coloração'],
-    description: 'Barbearia tradicional com mais de 15 anos de experiência. Especializada em cortes clássicos e modernos para o público masculino.',
-    specialties: ['Corte Social', 'Barba Completa', 'Pigmentação'],
-    professionals: ['Carlos Silva - Barbeiro Master', 'João Santos - Especialista em Barba'],
-    priceRange: 'R$ 25 - R$ 80',
-    parking: true,
-    accessibility: true,
-    instagram: '@barbeariaelegance'
+    services: ['Corte Masculino', 'Barba', 'Coloração']
   },
   {
     id: 2,
@@ -55,14 +48,7 @@ const salons = [
     reviews: 203,
     phone: '(11) 97654-3210',
     hours: 'Seg-Sex: 8h-19h | Sáb: 8h-17h',
-    services: ['Corte Feminino', 'Manicure', 'Escova'],
-    description: 'Salão feminino completo com atendimento personalizado. Ambiente aconchegante e profissionais altamente qualificados.',
-    specialties: ['Corte & Escova', 'Manicure Francesa', 'Tratamentos Capilares'],
-    professionals: ['Ana Costa - Hair Stylist', 'Maria Silva - Nail Designer', 'Lucia Santos - Colorista'],
-    priceRange: 'R$ 30 - R$ 150',
-    parking: false,
-    accessibility: true,
-    instagram: '@salaobelezapura'
+    services: ['Corte Feminino', 'Manicure', 'Escova']
   },
   {
     id: 3,
@@ -74,14 +60,7 @@ const salons = [
     reviews: 89,
     phone: '(11) 96543-2109',
     hours: 'Seg-Sáb: 9h-20h',
-    services: ['Corte', 'Coloração', 'Tratamentos'],
-    description: 'Studio moderno focado em transformações capilares. Utilizamos produtos premium e técnicas avançadas.',
-    specialties: ['Coloração Artística', 'Cortes Autorais', 'Reconstrução Capilar'],
-    professionals: ['Roberto Lima - Colorista Expert', 'Fernanda Costa - Hair Designer'],
-    priceRange: 'R$ 80 - R$ 300',
-    parking: true,
-    accessibility: true,
-    instagram: '@studiohairpremium'
+    services: ['Corte', 'Coloração', 'Tratamentos']
   },
   {
     id: 4,
@@ -93,14 +72,7 @@ const salons = [
     reviews: 156,
     phone: '(11) 95432-1098',
     hours: 'Seg-Sex: 8h-18h | Sáb: 8h-16h',
-    services: ['Corte Tradicional', 'Barba', 'Bigode'],
-    description: 'Barbearia clássica que preserva as tradições antigas. Ambiente nostálgico com serviços tradicionais.',
-    specialties: ['Corte Navalhado', 'Barba Tradicional', 'Relaxamento'],
-    professionals: ['Seu Antônio - Barbeiro Tradicional', 'Pedro Oliveira - Especialista'],
-    priceRange: 'R$ 20 - R$ 60',
-    parking: false,
-    accessibility: false,
-    instagram: '@barbeariaclassic'
+    services: ['Corte Tradicional', 'Barba', 'Bigode']
   },
   {
     id: 5,
@@ -112,14 +84,7 @@ const salons = [
     reviews: 312,
     phone: '(11) 94321-0987',
     hours: 'Seg-Sex: 9h-19h | Sáb: 9h-17h',
-    services: ['Corte Feminino', 'Pintura', 'Penteados'],
-    description: 'Salão moderno e descontraído na Vila Madalena. Especializado em looks ousados e tendências da moda.',
-    specialties: ['Luzes Balayage', 'Cortes Modernos', 'Penteados para Festas'],
-    professionals: ['Carla Mendes - Cabeleireira', 'Julia Santos - Penteadista', 'Amanda Lima - Colorista'],
-    priceRange: 'R$ 40 - R$ 200',
-    parking: true,
-    accessibility: true,
-    instagram: '@salaoglamour'
+    services: ['Corte Feminino', 'Pintura', 'Penteados']
   },
   {
     id: 6,
@@ -131,14 +96,7 @@ const salons = [
     reviews: 78,
     phone: '(11) 93210-9876',
     hours: 'Seg-Sáb: 10h-20h',
-    services: ['Corte Moderno', 'Luzes', 'Alisamento'],
-    description: 'Salão contemporâneo em Moema. Foco em técnicas modernas e atendimento personalizado.',
-    specialties: ['Progressive Brush', 'Mechas Californianas', 'Cortes Geométricos'],
-    professionals: ['Marcos Reis - Hair Stylist', 'Patrícia Costa - Alisamento Expert'],
-    priceRange: 'R$ 50 - R$ 250',
-    parking: true,
-    accessibility: true,
-    instagram: '@hairstylemoema'
+    services: ['Corte Moderno', 'Luzes', 'Alisamento']
   },
   {
     id: 7,
@@ -150,14 +108,7 @@ const salons = [
     reviews: 267,
     phone: '(11) 92109-8765',
     hours: 'Seg-Sex: 7h-19h | Sáb: 8h-17h',
-    services: ['Corte Fade', 'Barba Desenhada', 'Sobrancelha'],
-    description: 'Barbearia moderna com estilo urbano. Especializada em cortes contemporâneos e design de barba.',
-    specialties: ['Fade Degradê', 'Barba Estilizada', 'Design de Sobrancelha Masculina'],
-    professionals: ['Diego Silva - Barber Expert', 'Rafael Santos - Fade Specialist', 'Lucas Oliveira - Design'],
-    priceRange: 'R$ 35 - R$ 90',
-    parking: false,
-    accessibility: true,
-    instagram: '@barbeariamoderna'
+    services: ['Corte Fade', 'Barba Desenhada', 'Sobrancelha']
   },
   {
     id: 8,
@@ -169,14 +120,7 @@ const salons = [
     reviews: 189,
     phone: '(11) 91098-7654',
     hours: 'Seg-Sex: 8h-20h | Sáb: 8h-18h',
-    services: ['Corte & Cor', 'Hidratação', 'Progressiva'],
-    description: 'Salão sofisticado no coração empresarial de SP. Atendimento executive com agendamento prioritário.',
-    specialties: ['Hidratação Profunda', 'Progressiva Orgânica', 'Corte & Cor Premium'],
-    professionals: ['Vanessa Lima - Master Colorista', 'Rodrigo Alves - Hair Expert', 'Camila Santos - Tratamentos'],
-    priceRange: 'R$ 60 - R$ 350',
-    parking: true,
-    accessibility: true,
-    instagram: '@salaoencanto'
+    services: ['Corte & Cor', 'Hidratação', 'Progressiva']
   },
   {
     id: 9,
@@ -188,14 +132,7 @@ const salons = [
     reviews: 145,
     phone: '(11) 90987-6543',
     hours: 'Seg-Sáb: 9h-21h',
-    services: ['Corte Executivo', 'Coloração Premium', 'Tratamento Capilar'],
-    description: 'Studio de alta qualidade na Oscar Freire. Atendimento VIP com produtos importados e técnicas exclusivas.',
-    specialties: ['Corte Executivo', 'Coloração com Olaplex', 'Tratamento Botox Capilar'],
-    professionals: ['Alessandro Martins - Creative Director', 'Bianca Ferreira - Color Specialist', 'Thiago Costa - Master Stylist'],
-    priceRange: 'R$ 100 - R$ 500',
-    parking: true,
-    accessibility: true,
-    instagram: '@studioexcellence'
+    services: ['Corte Executivo', 'Coloração Premium', 'Tratamento Capilar']
   }
 ]
 
@@ -365,8 +302,7 @@ function HomePage() {
               </div>
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">{salon.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{salon.description}</p>
+                <h3 className="text-2xl font-bold mb-3">{salon.name}</h3>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-start gap-2 text-muted-foreground">
@@ -377,65 +313,32 @@ function HomePage() {
                     <Clock className="w-5 h-5 flex-shrink-0" />
                     <span>{salon.hours}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Tag className="w-5 h-5 flex-shrink-0" />
-                    <span>{salon.priceRange}</span>
-                  </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-sm font-semibold mb-2">Especialidades:</p>
+                  <p className="text-sm font-semibold mb-2">Serviços:</p>
                   <div className="flex flex-wrap gap-2">
-                    {salon.specialties.slice(0, 2).map((specialty, index) => (
+                    {salon.services.map((service, index) => (
                       <span
                         key={index}
-                        className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium"
+                        className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm"
                       >
-                        {specialty}
+                        {service}
                       </span>
                     ))}
-                    {salon.specialties.length > 2 && (
-                      <span className="text-xs text-muted-foreground px-2 py-1">
-                        +{salon.specialties.length - 2} mais
-                      </span>
-                    )}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 mb-4 text-xs text-muted-foreground">
-                  {salon.parking && (
-                    <span className="flex items-center gap-1">
-                      🅿️ Estacionamento
-                    </span>
-                  )}
-                  {salon.accessibility && (
-                    <span className="flex items-center gap-1">
-                      ♿ Acessível
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex gap-2">
-                  <Button 
-                    className="flex-1"
-                    onClick={() => {
-                      const message = encodeURIComponent(`Olá! Gostaria de agendar um horário no ${salon.name}`);
-                      window.open(`https://wa.me/5571993372960?text=${message}`, '_blank');
-                    }}
-                  >
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Agendar
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      window.open(`https://instagram.com/${salon.instagram.replace('@', '')}`, '_blank');
-                    }}
-                  >
-                    📷
-                  </Button>
-                </div>
+                <Button 
+                  className="w-full"
+                  onClick={() => {
+                    const message = encodeURIComponent(`Olá! Gostaria de agendar um horário no ${salon.name}`);
+                    window.open(`https://wa.me/5571993372960?text=${message}`, '_blank');
+                  }}
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Agendar Horário
+                </Button>
               </div>
             </motion.div>
           ))}

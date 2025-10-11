@@ -4,111 +4,94 @@ import { Button } from '@/components/ui/button.jsx'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
-// Mock data dos salões (integrado com as informações detalhadas da HomePage)
+// Mock data dos salões (mesmo do AgendamentoPage)
 const saloesDisponiveis = [
   {
     id: 1,
     nome: "Barbearia Elegance",
     endereco: "Rua das Flores, 123 - Centro",
-    telefone: "(11) 98765-4321",
+    telefone: "(71) 3333-1111",
     avaliacao: 4.8,
-    totalAvaliacoes: 127,
+    totalAvaliacoes: 156,
     imagem: "/src/assets/salon1.jpg",
     destaque: true,
-    descricao: "Barbearia tradicional com mais de 15 anos de experiência. Especializada em cortes clássicos e modernos para o público masculino.",
-    instagram: "@barbeariaelegance",
-    priceRange: "R$ 25 - R$ 80",
-    parking: true,
-    accessibility: true,
+    descricao: "Especializada em cortes masculinos clássicos e modernos",
     profissionais: [
-      { id: 1, nome: "Carlos Silva - Barbeiro Master", especialidade: "Corte Masculino", preco: 35, avatar: "👨‍💼", status: "disponivel" },
-      { id: 2, nome: "João Santos - Especialista em Barba", especialidade: "Barba", preco: 25, avatar: "👨‍🦲", status: "ocupado" }
+      { id: 1, nome: "João Silva", especialidade: "Corte Masculino", preco: 25, avatar: "👨‍💼", status: "disponivel" },
+      { id: 2, nome: "Pedro Santos", especialidade: "Barba", preco: 20, avatar: "👨‍🦲", status: "ocupado" }
     ],
     servicos: [
-      { id: 1, nome: "Corte Social", preco: 35, tempo: "30min", popular: true },
-      { id: 2, nome: "Barba Completa", preco: 25, tempo: "20min", popular: true },
-      { id: 3, nome: "Pigmentação", preco: 80, tempo: "60min", popular: false }
+      { id: 1, nome: "Corte Masculino", preco: 25, tempo: "30min", popular: true },
+      { id: 2, nome: "Barba", preco: 20, tempo: "20min", popular: false },
+      { id: 3, nome: "Corte + Barba", preco: 40, tempo: "45min", popular: true }
     ],
-    especialidades: ["Corte Social", "Barba Completa", "Pigmentação"],
     horarios: ["09:00", "09:30", "10:00", "10:30", "11:00", "14:00", "14:30", "15:00"],
     filaEspera: [
-      { id: 1, cliente: "Carlos Silva", servico: "Corte + Barba", profissional: "Carlos Silva", horario: "14:30", status: "confirmado" },
-      { id: 2, cliente: "Roberto Lima", servico: "Corte Social", profissional: "Carlos Silva", horario: "15:00", status: "aguardando" },
-      { id: 3, cliente: "Fernando Costa", servico: "Barba Completa", profissional: "João Santos", horario: "15:30", status: "aguardando" }
+      { id: 1, cliente: "Carlos Silva", servico: "Corte + Barba", profissional: "João Silva", horario: "14:30", status: "confirmado" },
+      { id: 2, cliente: "Roberto Lima", servico: "Corte Masculino", profissional: "João Silva", horario: "15:00", status: "aguardando" },
+      { id: 3, cliente: "Fernando Costa", servico: "Barba", profissional: "Pedro Santos", horario: "15:30", status: "aguardando" }
     ],
     horarioFuncionamento: {
-      abertura: "09:00",
-      fechamento: "20:00"
+      abertura: "08:00",
+      fechamento: "18:00"
     }
   },
   {
     id: 2,
     nome: "Salão Beleza Pura",
-    endereco: "Av. Paulista, 456 - Bela Vista",
-    telefone: "(11) 97654-3210",
+    endereco: "Av. Liberdade, 456 - Pituba",
+    telefone: "(71) 3333-2222",
     avaliacao: 4.9,
     totalAvaliacoes: 203,
     imagem: "/src/assets/salon2.jpg",
     destaque: true,
-    descricao: "Salão feminino completo com atendimento personalizado. Ambiente aconchegante e profissionais altamente qualificados.",
-    instagram: "@salaobelezapura",
-    priceRange: "R$ 30 - R$ 150",
-    parking: false,
-    accessibility: true,
+    descricao: "Cuidados completos para cabelos femininos e tratamentos",
     profissionais: [
-      { id: 3, nome: "Ana Costa - Hair Stylist", especialidade: "Corte & Escova", preco: 45, avatar: "👩‍🦱", status: "disponivel" },
-      { id: 4, nome: "Maria Silva - Nail Designer", especialidade: "Manicure Francesa", preco: 30, avatar: "💅", status: "disponivel" },
-      { id: 5, nome: "Lucia Santos - Colorista", especialidade: "Tratamentos Capilares", preco: 80, avatar: "✨", status: "ocupado" }
+      { id: 3, nome: "Ana Costa", especialidade: "Cabelo Feminino", preco: 45, avatar: "👩‍🦱", status: "disponivel" },
+      { id: 4, nome: "Maria Silva", especialidade: "Manicure", preco: 25, avatar: "💅", status: "disponivel" }
     ],
     servicos: [
-      { id: 4, nome: "Corte & Escova", preco: 45, tempo: "45min", popular: true },
-      { id: 5, nome: "Manicure Francesa", preco: 30, tempo: "30min", popular: true },
-      { id: 6, nome: "Tratamentos Capilares", preco: 80, tempo: "60min", popular: false }
+      { id: 4, nome: "Corte Feminino", preco: 45, tempo: "45min", popular: true },
+      { id: 5, nome: "Escova", preco: 30, tempo: "30min", popular: true },
+      { id: 6, nome: "Manicure", preco: 25, tempo: "40min", popular: false }
     ],
-    especialidades: ["Corte & Escova", "Manicure Francesa", "Tratamentos Capilares"],
     horarios: ["08:00", "08:30", "09:00", "09:30", "10:00", "13:00", "13:30", "14:00"],
     filaEspera: [
-      { id: 4, cliente: "Julia Santos", servico: "Corte & Escova", profissional: "Ana Costa", horario: "09:00", status: "confirmado" },
-      { id: 5, cliente: "Mariana Lima", servico: "Manicure Francesa", profissional: "Maria Silva", horario: "09:30", status: "confirmado" },
-      { id: 6, cliente: "Patricia Costa", servico: "Tratamentos Capilares", profissional: "Lucia Santos", horario: "10:00", status: "aguardando" }
+      { id: 4, cliente: "Julia Santos", servico: "Corte Feminino", profissional: "Ana Costa", horario: "09:00", status: "confirmado" },
+      { id: 5, cliente: "Mariana Lima", servico: "Escova", profissional: "Ana Costa", horario: "09:30", status: "confirmado" },
+      { id: 6, cliente: "Patricia Costa", servico: "Manicure", profissional: "Maria Silva", horario: "10:00", status: "aguardando" }
     ],
     horarioFuncionamento: {
       abertura: "08:00",
-      fechamento: "19:00"
+      fechamento: "18:00"
     }
   },
   {
     id: 3,
     nome: "Studio Hair Premium",
-    endereco: "Rua Augusta, 789 - Jardins",
-    telefone: "(11) 96543-2109",
+    endereco: "Rua dos Artistas, 789 - Barra",
+    telefone: "(71) 3333-3333",
     avaliacao: 4.7,
-    totalAvaliacoes: 89,
+    totalAvaliacoes: 98,
     imagem: "/src/assets/salon3.jpg",
     destaque: false,
-    descricao: "Studio moderno focado em transformações capilares. Utilizamos produtos premium e técnicas avançadas.",
-    instagram: "@studiohairpremium",
-    priceRange: "R$ 80 - R$ 300",
-    parking: true,
-    accessibility: true,
+    descricao: "Especialistas em coloração e tratamentos capilares premium",
     profissionais: [
-      { id: 6, nome: "Roberto Lima - Colorista Expert", especialidade: "Coloração Artística", preco: 150, avatar: "🎨", status: "ocupado" },
-      { id: 7, nome: "Fernanda Costa - Hair Designer", especialidade: "Cortes Autorais", preco: 100, avatar: "✂️", status: "disponivel" }
+      { id: 5, nome: "Carlos Mendes", especialidade: "Coloração", preco: 80, avatar: "🎨", status: "ocupado" },
+      { id: 6, nome: "Lucia Reis", especialidade: "Tratamentos", preco: 60, avatar: "✨", status: "disponivel" }
     ],
     servicos: [
-      { id: 7, nome: "Coloração Artística", preco: 150, tempo: "90min", popular: true },
-      { id: 8, nome: "Cortes Autorais", preco: 100, tempo: "60min", popular: true },
-      { id: 9, nome: "Reconstrução Capilar", preco: 200, tempo: "120min", popular: false }
+      { id: 7, nome: "Coloração", preco: 80, tempo: "90min", popular: true },
+      { id: 8, nome: "Hidratação", preco: 40, tempo: "60min", popular: false },
+      { id: 9, nome: "Penteado", preco: 50, tempo: "45min", popular: false }
     ],
-    especialidades: ["Coloração Artística", "Cortes Autorais", "Reconstrução Capilar"],
     horarios: ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"],
     filaEspera: [
-      { id: 7, cliente: "Amanda Silva", servico: "Coloração Artística", profissional: "Roberto Lima", horario: "14:00", status: "confirmado" },
-      { id: 8, cliente: "Beatriz Santos", servico: "Cortes Autorais", profissional: "Fernanda Costa", horario: "15:30", status: "aguardando" }
+      { id: 7, cliente: "Amanda Silva", servico: "Coloração", profissional: "Carlos Mendes", horario: "14:00", status: "confirmado" }
     ],
     horarioFuncionamento: {
       abertura: "09:00",
-      fechamento: "20:00"
+      fechamento: "18:00"
     }
   }
 ]
@@ -200,59 +183,16 @@ function SalaoDetalhePage() {
                     {salao.horarioFuncionamento.abertura} às {salao.horarioFuncionamento.fechamento}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm">{salao.priceRange}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm">{salao.instagram}</span>
-                </div>
               </div>
 
-              {/* Facilidades */}
-              <div className="flex gap-4 mb-6">
-                {salao.parking && (
-                  <div className="flex items-center gap-1 text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full">
-                    🅿️ Estacionamento
-                  </div>
-                )}
-                {salao.accessibility && (
-                  <div className="flex items-center gap-1 text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-                    ♿ Acessível
-                  </div>
-                )}
-              </div>
-
-              {/* Especialidades */}
-              <div className="mb-6">
-                <h4 className="font-semibold text-gray-800 mb-2">Especialidades:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {salao.especialidades.map((especialidade, index) => (
-                    <span key={index} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                      {especialidade}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Button 
-                  onClick={iniciarAgendamento}
-                  className="flex-1 py-3"
-                  size="lg"
-                >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Agendar Horário
-                </Button>
-                <Button 
-                  variant="outline"
-                  onClick={() => window.open(`https://instagram.com/${salao.instagram.replace('@', '')}`, '_blank')}
-                  className="px-4"
-                >
-                  📷
-                </Button>
-              </div>
+              <Button 
+                onClick={iniciarAgendamento}
+                className="w-full py-3"
+                size="lg"
+              >
+                <Calendar className="w-5 h-5 mr-2" />
+                Agendar Horário
+              </Button>
             </div>
 
             {/* Lado direito - Estatísticas */}
