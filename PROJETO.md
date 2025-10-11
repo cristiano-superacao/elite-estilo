@@ -1,8 +1,8 @@
-# Beleza Connect - Sistema de Gestão para Barbearias e Salões
+# Elite & Estilo - Sistema de Gestão para Barbearias e Salões
 
-## 📋 Resumo do Projeto
+## 📋 Descrição do Projeto
 
-O **Beleza Connect** é um sistema de gestão completo para barbearias e salões de beleza, desenvolvido com React, TailwindCSS e tecnologias modernas. O site foi criado para conectar profissionais e clientes de forma simples e eficiente.
+O **Elite & Estilo** é um sistema de gestão completo para barbearias e salões de beleza, desenvolvido com React, TailwindCSS e tecnologias modernas. O site foi criado para conectar profissionais e clientes de forma simples e eficiente.
 
 ## ✨ Funcionalidades Implementadas
 
@@ -83,27 +83,25 @@ O **Beleza Connect** é um sistema de gestão completo para barbearias e salões
 ## 📁 Estrutura do Projeto
 
 ```
-beleza-connect/
+elite-estilo/
+├── public/
+│   └── favicon.ico
 ├── src/
-│   ├── assets/          # Imagens dos salões
+│   ├── assets/
+│   │   ├── salon1.jpg
+│   │   ├── salon2.jpg
+│   │   └── salon3.jpg
 │   ├── components/
-│   │   └── ui/          # Componentes UI (shadcn)
-│   ├── pages/
-│   │   ├── HomePage.jsx # Página inicial com carrossel, salões e promoções
-│   │   └── PlansPage.jsx # Página de planos
-│   ├── App.jsx          # Componente principal com navegação
-│   ├── App.css          # Estilos globais
-│   └── main.jsx         # Entry point
-├── index.html           # HTML principal
-└── package.json         # Dependências
+│   │   └── ui/
 ```
 
 ## 🚀 Como Executar
 
 1. Instalar dependências:
 ```bash
-cd beleza-connect
-pnpm install
+cd elite-estilo
+npm install
+npm run dev
 ```
 
 2. Iniciar servidor de desenvolvimento:
@@ -186,5 +184,7 @@ O site utiliza variáveis CSS customizadas com cores em formato OKLCH para garan
 
 ## 📄 Licença
 
-© 2025 Beleza Connect. Todos os direitos reservados.
+---
+
+© 2025 Elite & Estilo. Todos os direitos reservados.
 

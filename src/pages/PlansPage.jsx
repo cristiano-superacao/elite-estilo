@@ -144,7 +144,7 @@ function PlansPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-muted-foreground mb-8"
           >
-            Comece com 90 dias grátis e veja como o Beleza Connect pode transformar seu salão
+            Comece com 90 dias grátis e veja como o Elite & Estilo pode transformar seu salão
           </motion.p>
         </div>
       </section>
