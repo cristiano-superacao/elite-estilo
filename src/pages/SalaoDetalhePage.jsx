@@ -33,8 +33,10 @@ const saloesDisponiveis = [
     horarios: ["09:00", "09:30", "10:00", "10:30", "11:00", "14:00", "14:30", "15:00"],
     filaEspera: [
       { id: 1, cliente: "Carlos Silva", servico: "Corte + Barba", profissional: "Carlos Silva", horario: "14:30", status: "confirmado" },
-      { id: 2, cliente: "Roberto Lima", servico: "Corte Social", profissional: "Carlos Silva", horario: "15:00", status: "aguardando" },
-      { id: 3, cliente: "Fernando Costa", servico: "Barba Completa", profissional: "João Santos", horario: "15:30", status: "aguardando" }
+      { id: 2, cliente: "Roberto Lima", servico: "Corte Social", profissional: "Carlos Silva", horario: "15:00", status: "em-atendimento" },
+      { id: 3, cliente: "Fernando Costa", servico: "Barba Completa", profissional: "João Santos", horario: "15:30", status: "aguardando" },
+      { id: 4, cliente: "Miguel Santos", servico: "Pigmentação", profissional: "Pedro Oliveira", horario: "16:00", status: "confirmado" },
+      { id: 5, cliente: "André Ribeiro", servico: "Corte + Barba", profissional: "Carlos Silva", horario: "16:30", status: "aguardando" }
     ],
     horarioFuncionamento: {
       abertura: "09:00",
@@ -352,20 +354,101 @@ function SalaoDetalhePage() {
     })
   }
 
+  // Funções para gerenciar a fila de espera
+  const iniciarAtendimento = (clienteId) => {
+    // Atualizar status do cliente para "em-atendimento"
+    const filaAtualizada = salao.filaEspera.map(item => 
+      item.id === clienteId 
+        ? { ...item, status: 'em-atendimento' }
+        : item
+    )
+    
+    // Aqui você pode implementar a persistência no banco de dados
+    console.log('Iniciando atendimento para cliente:', clienteId)
+    
+    // Para simulação, vamos atualizar o estado local
+    // Em um sistema real, isso seria uma chamada para a API
+    salao.filaEspera = filaAtualizada
+    
+    // Forçar re-render
+    setAbaSelecionada('espera')
+  }
+
+  const finalizarServico = (clienteId) => {
+    // Marcar serviço como finalizado e mover cliente para o final da fila ou remover
+    const filaAtualizada = salao.filaEspera.map(item => 
+      item.id === clienteId 
+        ? { ...item, status: 'finalizado' }
+        : item
+    )
+    
+    // Aqui você pode implementar a persistência no banco de dados
+    console.log('Finalizando serviço para cliente:', clienteId)
+    
+    // Para simulação, vamos atualizar o estado local
+    salao.filaEspera = filaAtualizada
+    
+    // Após 2 segundos, remover o cliente finalizado da fila
+    setTimeout(() => {
+      const filaSemFinalizado = salao.filaEspera.filter(item => item.id !== clienteId)
+      salao.filaEspera = filaSemFinalizado
+      setAbaSelecionada('espera') // Forçar re-render
+    }, 2000)
+    
+    // Forçar re-render imediato
+    setAbaSelecionada('espera')
+  }
+
+  // Função para verificar integração com banco de dados
+  const verificarIntegracaoBD = () => {
+    console.log('=== VERIFICAÇÃO DE INTEGRAÇÃO COM BANCO DE DADOS ===')
+    console.log('1. Salões cadastrados no localStorage:', JSON.parse(localStorage.getItem('saloesCadastrados') || '[]'))
+    console.log('2. Dados do salão atual:', salao)
+    console.log('3. Fila de espera atual:', salao?.filaEspera)
+    console.log('4. Status da conexão: Usando localStorage (simulação)')
+    console.log('Para implementar BD real, substitua localStorage por chamadas de API')
+    
+    alert(`
+    ✅ VERIFICAÇÃO CONCLUÍDA
+    
+    📊 Status da Integração:
+    • Salões Cadastrados: ${JSON.parse(localStorage.getItem('saloesCadastrados') || '[]').length} salões
+    • Sistema: Funcionando com localStorage
+    • Fila de Espera: ${salao?.filaEspera?.length || 0} clientes
+    
+    🔧 Para implementar banco de dados real:
+    1. Configurar backend (Node.js + Express + MongoDB/PostgreSQL)
+    2. Substituir localStorage por chamadas de API
+    3. Implementar autenticação de usuários
+    4. Adicionar sincronização em tempo real
+    `)
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-white border-b p-4">
-        <div className="max-w-6xl mx-auto flex items-center gap-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/agendamento')}
+              className="p-2"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <h1 className="text-xl font-bold">{salao.nome}</h1>
+          </div>
+          
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            onClick={() => navigate('/agendamento')}
-            className="p-2"
+            onClick={verificarIntegracaoBD}
+            className="text-xs"
           >
-            <ArrowLeft className="w-5 h-5" />
+            🔍 Verificar BD
           </Button>
-          <h1 className="text-xl font-bold">{salao.nome}</h1>
         </div>
       </header>
 
@@ -603,9 +686,19 @@ function SalaoDetalhePage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-4"
               >
-                <h3 className="text-lg font-semibold mb-4">
-                  Fila de Espera - {new Date().toLocaleDateString('pt-BR')}
-                </h3>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold">
+                    Fila de Espera - {new Date().toLocaleDateString('pt-BR')}
+                  </h3>
+                  {salao.filaEspera.length > 0 && (
+                    <div className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                      Total: {salao.filaEspera.length} clientes | 
+                      Aguardando: {salao.filaEspera.filter(item => item.status === 'aguardando').length} | 
+                      Confirmados: {salao.filaEspera.filter(item => item.status === 'confirmado').length} | 
+                      Em Atendimento: {salao.filaEspera.filter(item => item.status === 'em-atendimento').length}
+                    </div>
+                  )}
+                </div>
                 
                 {salao.filaEspera.length === 0 ? (
                   <div className="text-center py-12 text-gray-500">
@@ -627,15 +720,44 @@ function SalaoDetalhePage() {
                             <p className="text-xs text-gray-500">Com {item.profissional}</p>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right space-y-2">
                           <p className="font-semibold text-primary">{item.horario}</p>
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                             item.status === 'confirmado' 
                               ? 'bg-green-100 text-green-800'
+                              : item.status === 'em-atendimento'
+                              ? 'bg-blue-100 text-blue-800'
+                              : item.status === 'finalizado'
+                              ? 'bg-gray-100 text-gray-800'
                               : 'bg-yellow-100 text-yellow-800'
                           }`}>
-                            {item.status === 'confirmado' ? '✅ Confirmado' : '⏳ Aguardando'}
+                            {item.status === 'confirmado' ? '✅ Confirmado' : 
+                             item.status === 'em-atendimento' ? '🔄 Em Atendimento' :
+                             item.status === 'finalizado' ? '✔️ Finalizado' :
+                             '⏳ Aguardando'}
                           </span>
+                          
+                          {item.status === 'confirmado' && (
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => iniciarAtendimento(item.id)}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors"
+                              >
+                                Iniciar Atendimento
+                              </button>
+                            </div>
+                          )}
+                          
+                          {item.status === 'em-atendimento' && (
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => finalizarServico(item.id)}
+                                className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs transition-colors"
+                              >
+                                ✅ Finalizar Serviço
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
