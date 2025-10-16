@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap } from 'lucide-react'
+// Utilitário para formatar mensagem do WhatsApp
+function getWhatsappUrl(salon, service, date, hour, clientName) {
+  const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!%0A%0A*Cliente:* ${clientName || ''}%0A*Serviço:* ${service}%0A*Data:* ${date}%0A*Horário:* ${hour}`;
+  return `https://wa.me/${salon.whatsapp}?text=${msg}`;
+}
+import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap, Search } from 'lucide-react'
 import { Button } from '../components/ui/button.jsx'
 import { motion, AnimatePresence } from 'framer-motion'
-import { salon1, salon2, salon3 } from '../assets/images.js'
+import { salonsDatabase, searchSalons } from '../data/salons.js'
 
 const carouselImages = [
   {
@@ -25,50 +30,7 @@ const carouselImages = [
   }
 ]
 
-const salons = [
-  {
-    id: 1,
-    name: 'Barbearia Elegance',
-    image: salon1,
-    address: 'Rua das Flores, 123 - Centro',
-    city: 'São Paulo',
-    rating: 4.8,
-    reviews: 127,
-    phone: '(11) 98765-4321',
-    hours: 'Seg-Sex: 9h-20h | Sáb: 9h-18h',
-    services: ['Corte Masculino', 'Barba', 'Coloração'],
-    badge: 'Top Rated',
-    color: 'from-blue-500 to-indigo-600'
-  },
-  {
-    id: 2,
-    name: 'Salão Beleza Pura',
-    image: salon2,
-    address: 'Av. Paulista, 456 - Bela Vista',
-    city: 'São Paulo',
-    rating: 4.9,
-    reviews: 203,
-    phone: '(11) 97654-3210',
-    hours: 'Seg-Sex: 8h-19h | Sáb: 8h-17h',
-    services: ['Corte Feminino', 'Manicure', 'Escova'],
-    badge: 'Premium',
-    color: 'from-purple-500 to-pink-600'
-  },
-  {
-    id: 3,
-    name: 'Studio Hair Premium',
-    image: salon3,
-    address: 'Rua Augusta, 789 - Consolação',
-    city: 'São Paulo',
-    rating: 4.7,
-    reviews: 89,
-    phone: '(11) 96543-2109',
-    hours: 'Seg-Sex: 10h-21h | Sáb: 9h-18h',
-    services: ['Corte Unissex', 'Tratamentos', 'Coloração'],
-    badge: 'Trending',
-    color: 'from-emerald-500 to-teal-600'
-  }
-]
+// Usar base de dados real dos salões
 
 const promotions = [
   {
@@ -116,8 +78,20 @@ const stats = [
   { icon: Shield, value: '100%', label: 'Segurança' }
 ]
 
-export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [search, setSearch] = useState("");
+  const [filteredSalons, setFilteredSalons] = useState(salonsDatabase);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedSalon, setSelectedSalon] = useState(null);
+  const [selectedService, setSelectedService] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedHour, setSelectedHour] = useState("");
+  const [clientName, setClientName] = useState("");
+
+  // Atualiza lista ao pesquisar
+  useEffect(() => {
+    setFilteredSalons(searchSalons(search));
+  }, [search]);
 
   // Auto-play carousel
   useEffect(() => {
@@ -274,78 +248,150 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
               Salões em Destaque
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
               Descubra os melhores profissionais da sua região com avaliações reais e serviços de qualidade
             </p>
+            {/* Campo de pesquisa */}
+            <div className="flex justify-center mb-4">
+              <div className="relative w-full max-w-md">
+                <input
+                  type="text"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-slate-700 text-lg"
+                  placeholder="Pesquisar salões, serviços, cidade..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              </div>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {salons.map((salon, index) => (
-              <motion.div
-                key={salon.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
-              >
-                <div className="relative">
-                  <img
-                    src={salon.image}
-                    alt={salon.name}
-                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className={`absolute top-4 left-4 bg-gradient-to-r ${salon.color} text-white px-3 py-1 rounded-full text-sm font-bold`}>
-                    {salon.badge}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors">
-                      {salon.name}
-                    </h3>
-                    <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm font-semibold text-slate-700">{salon.rating}</span>
-                      <span className="text-xs text-slate-500">({salon.reviews})</span>
+            {filteredSalons.length === 0 ? (
+              <div className="col-span-full text-center text-slate-500 text-lg py-12">Nenhum salão encontrado.</div>
+            ) : (
+              filteredSalons.map((salon, index) => (
+                <motion.div
+                  key={salon.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
+                >
+                  <div className="relative">
+                    <img
+                      src={salon.image}
+                      alt={salon.name}
+                      className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className={`absolute top-4 left-4 bg-gradient-to-r ${salon.color} text-white px-3 py-1 rounded-full text-sm font-bold`}>
+                      {salon.badge}
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-slate-600">
-                      <MapPin className="w-4 h-4 text-primary" />
-                      <span className="text-sm">{salon.address}</span>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <h3 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors">
+                        {salon.name}
+                      </h3>
+                      <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
+                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        <span className="text-sm font-semibold text-slate-700">{salon.rating}</span>
+                        <span className="text-xs text-slate-500">({salon.reviews})</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3 text-slate-600">
-                      <Clock className="w-4 h-4 text-primary" />
-                      <span className="text-sm">{salon.hours}</span>
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center gap-3 text-slate-600">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <span className="text-sm">{salon.address}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-slate-600">
+                        <Clock className="w-4 h-4 text-primary" />
+                        <span className="text-sm">{salon.hours}</span>
+                      </div>
                     </div>
+                    <div className="mb-6">
+                      <p className="text-sm font-medium text-slate-700 mb-3">Serviços:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {salon.services.map((service, serviceIndex) => (
+                          <span
+                            key={serviceIndex}
+                            className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
+                          >
+                            {service}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <Button
+                      className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white rounded-xl font-semibold group"
+                      onClick={() => {
+                        setSelectedSalon(salon);
+                        setSelectedService("");
+                        setSelectedDate("");
+                        setSelectedHour("");
+                        setClientName("");
+                        setShowModal(true);
+                      }}
+                    >
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Agendar Horário
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+      {/* Modal de agendamento */}
+      {showModal && selectedSalon && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fadeIn">
+            <button className="absolute top-3 right-3 text-slate-400 hover:text-primary" onClick={() => setShowModal(false)}>
+              <X className="w-6 h-6" />
+            </button>
+            <h2 className="text-2xl font-bold mb-4 text-slate-800">Agendar em {selectedSalon.name}</h2>
+            <form className="space-y-4" onSubmit={e => { e.preventDefault(); }}>
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Seu nome</label>
+                <input type="text" className="w-full border rounded-lg px-3 py-2" value={clientName} onChange={e => setClientName(e.target.value)} required />
+              </div>
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Serviço</label>
+                <select className="w-full border rounded-lg px-3 py-2" value={selectedService} onChange={e => setSelectedService(e.target.value)} required>
+                  <option value="">Selecione...</option>
+                  {selectedSalon.services.map((service, idx) => (
+                    <option key={idx} value={service}>{service}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Data</label>
+                <input type="date" className="w-full border rounded-lg px-3 py-2" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} required />
+              </div>
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Horário</label>
+                <input type="time" className="w-full border rounded-lg px-3 py-2" value={selectedHour} onChange={e => setSelectedHour(e.target.value)} required />
+              </div>
+              <div className="pt-2 flex flex-col gap-2">
+                <a
+                  href={selectedService && selectedDate && selectedHour && clientName ? getWhatsappUrl(selectedSalon, selectedService, selectedDate, selectedHour, clientName) : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all text-white ${selectedService && selectedDate && selectedHour && clientName ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'}`}
+                  onClick={() => setShowModal(false)}
+                  disabled={!(selectedService && selectedDate && selectedHour && clientName)}
+                >
+                  <Whatsapp className="w-5 h-5" /> Confirmar e Enviar pelo WhatsApp
+                </a>
+                <button type="button" className="w-full px-6 py-3 rounded-xl font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300" onClick={() => setShowModal(false)}>
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
                   </div>
-
-                  <div className="mb-6">
-                    <p className="text-sm font-medium text-slate-700 mb-3">Serviços:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {salon.services.map((service, serviceIndex) => (
-                        <span
-                          key={serviceIndex}
-                          className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
-                        >
-                          {service}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white rounded-xl font-semibold group">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    Agendar Horário
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>
