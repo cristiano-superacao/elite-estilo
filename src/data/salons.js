@@ -3,7 +3,7 @@ export const salonsDatabase = [
   {
     id: 1,
     name: 'Barbearia Elegance',
-    image: '/api/placeholder/400/300',
+  image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&h=300&fit=crop&crop=center',
     address: 'Rua das Flores, 123 - Centro',
     city: 'São Paulo',
     rating: 4.8,
@@ -27,7 +27,7 @@ export const salonsDatabase = [
   {
     id: 2,
     name: 'Salão Beleza Pura',
-    image: '/api/placeholder/400/300',
+  image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=300&fit=crop&crop=center',
     address: 'Av. Paulista, 456 - Bela Vista',
     city: 'São Paulo',
     rating: 4.9,
@@ -52,7 +52,7 @@ export const salonsDatabase = [
   {
     id: 3,
     name: 'Studio Hair Premium',
-    image: '/api/placeholder/400/300',
+  image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&h=300&fit=crop&crop=center',
     address: 'Rua Augusta, 789 - Consolação',
     city: 'São Paulo',
     rating: 4.7,
@@ -77,7 +77,7 @@ export const salonsDatabase = [
   {
     id: 4,
     name: 'Barbearia Vintage',
-    image: '/api/placeholder/400/300',
+  image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=300&fit=crop&crop=center',
     address: 'Rua dos Barbeiros, 321 - Vila Madalena',
     city: 'São Paulo',
     rating: 4.6,
@@ -102,7 +102,7 @@ export const salonsDatabase = [
   {
     id: 5,
     name: 'Salão Glamour',
-    image: '/api/placeholder/400/300',
+  image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=500&h=300&fit=crop&crop=center',
     address: 'Av. Rebouças, 987 - Pinheiros',
     city: 'São Paulo',
     rating: 4.8,

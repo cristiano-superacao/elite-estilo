@@ -1,64 +1,65 @@
 import { useState, useEffect } from 'react'
-// Utilitário para formatar mensagem do WhatsApp
-function getWhatsappUrl(salon, service, date, hour, clientName) {
-  const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!%0A%0A*Cliente:* ${clientName || ''}%0A*Serviço:* ${service}%0A*Data:* ${date}%0A*Horário:* ${hour}`;
-  return `https://wa.me/${salon.whatsapp}?text=${msg}`;
-}
-import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap, Search } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap, Search, X, Phone } from 'lucide-react'
 import { Button } from '../components/ui/button.jsx'
 import { motion, AnimatePresence } from 'framer-motion'
-import { salonsDatabase, searchSalons } from '../data/salons.js'
+// import { salonsDatabase, searchSalons } from '../data/salons.js'
+import { salon1, salon2, salon3 } from '../assets/images.js'
 
-const carouselImages = [
-  {
-    src: salon1,
-    title: 'Transforme seu Visual',
-    subtitle: 'Encontre os melhores salões e barbearias da sua região',
-    cta: 'Explorar Salões'
-  },
-  {
-    src: salon2,
-    title: 'Profissionais Qualificados',
-    subtitle: 'Agende seus serviços com facilidade e praticidade',
-    cta: 'Agendar Agora'
-  },
-  {
-    src: salon3,
-    title: 'Experiência Única',
-    subtitle: 'Atendimento de qualidade e ambiente acolhedor',
-    cta: 'Conhecer Planos'
+export default function HomePage() {
+  // Utilitário para formatar mensagem do WhatsApp
+  function getWhatsappUrl(salon, service, date, hour, clientName) {
+    const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!%0A%0A*Cliente:* ${clientName || ''}%0A*Serviço:* ${service}%0A*Data:* ${date}%0A*Horário:* ${hour}`;
+    return `https://wa.me/${salon.whatsapp}?text=${msg}`;
   }
-]
 
-// Usar base de dados real dos salões
+  const carouselImages = [
+    {
+      src: salon1,
+      title: 'Transforme seu Visual',
+      subtitle: 'Encontre os melhores salões e barbearias da sua região',
+      cta: 'Explorar Salões'
+    },
+    {
+      src: salon2,
+      title: 'Profissionais Qualificados',
+      subtitle: 'Agende seus serviços com facilidade e praticidade',
+      cta: 'Agendar Agora'
+    },
+    {
+      src: salon3,
+      title: 'Experiência Única',
+      subtitle: 'Atendimento de qualidade e ambiente acolhedor',
+      cta: 'Conhecer Planos'
+    }
+  ];
 
-const promotions = [
-  {
-    id: 1,
-    salon: 'Barbearia Elegance',
-    title: 'Combo Corte + Barba',
-    discount: 25,
-    originalPrice: 80,
-    discountedPrice: 60,
-    description: 'Corte masculino moderno + modelagem de barba completa',
-    validUntil: '31/01/2025',
-    image: salon1,
-    popular: true
-  },
-  {
-    id: 2,
-    salon: 'Salão Beleza Pura',
-    title: 'Escova + Hidratação',
-    discount: 25,
-    originalPrice: 100,
-    discountedPrice: 75,
-    description: 'Escova modeladora + tratamento hidratante profundo',
-    validUntil: '28/02/2025',
-    image: salon2,
-    popular: false
-  },
-  {
-    id: 3,
+  const promotions = [
+    {
+      id: 1,
+      salon: 'Barbearia Elegance',
+      title: 'Combo Corte + Barba',
+      discount: 25,
+      originalPrice: 80,
+      discountedPrice: 60,
+      description: 'Corte masculino moderno + modelagem de barba completa',
+      validUntil: '31/01/2025',
+      image: salon1,
+      popular: true
+    },
+    {
+      id: 2,
+      salon: 'Salão Beleza Pura',
+      title: 'Escova + Hidratação',
+      discount: 25,
+      originalPrice: 100,
+      discountedPrice: 75,
+      description: 'Escova modeladora + tratamento hidratante profundo',
+      validUntil: '28/02/2025',
+      image: salon2,
+      popular: false
+    },
+    {
+      id: 3,
     salon: 'Studio Hair Premium',
     title: 'Pacote Completo',
     discount: 25,
@@ -80,7 +81,7 @@ const stats = [
 
   const [currentSlide, setCurrentSlide] = useState(0)
   const [search, setSearch] = useState("");
-  const [filteredSalons, setFilteredSalons] = useState(salonsDatabase);
+  const [filteredSalons, setFilteredSalons] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedSalon, setSelectedSalon] = useState(null);
   const [selectedService, setSelectedService] = useState("");
@@ -90,7 +91,17 @@ const stats = [
 
   // Atualiza lista ao pesquisar
   useEffect(() => {
-    setFilteredSalons(searchSalons(search));
+    if (search.trim() === "") {
+      fetch('/.netlify/functions/salons-function/salons')
+        .then(res => res.json())
+        .then(data => setFilteredSalons(data))
+        .catch(() => setFilteredSalons([]));
+    } else {
+      fetch(`/.netlify/functions/salons-function/salons/search?q=${encodeURIComponent(search)}`)
+        .then(res => res.json())
+        .then(data => setFilteredSalons(data))
+        .catch(() => setFilteredSalons([]));
+    }
   }, [search]);
 
   // Auto-play carousel
@@ -370,16 +381,30 @@ const stats = [
                 <input type="time" className="w-full border rounded-lg px-3 py-2" value={selectedHour} onChange={e => setSelectedHour(e.target.value)} required />
               </div>
               <div className="pt-2 flex flex-col gap-2">
-                <a
-                  href={selectedService && selectedDate && selectedHour && clientName ? getWhatsappUrl(selectedSalon, selectedService, selectedDate, selectedHour, clientName) : '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all text-white ${selectedService && selectedDate && selectedHour && clientName ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'}`}
-                  onClick={() => setShowModal(false)}
                   disabled={!(selectedService && selectedDate && selectedHour && clientName)}
+                  onClick={async () => {
+                    if (selectedService && selectedDate && selectedHour && clientName) {
+                      await fetch('/.netlify/functions/salons-function/appointments', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          salon_id: selectedSalon.id,
+                          client_name: clientName,
+                          service: selectedService,
+                          date: selectedDate,
+                          hour: selectedHour
+                        })
+                      });
+                      window.open(getWhatsappUrl(selectedSalon, selectedService, selectedDate, selectedHour, clientName), '_blank');
+                      setShowModal(false);
+                    }
+                  }}
                 >
-                  <Whatsapp className="w-5 h-5" /> Confirmar e Enviar pelo WhatsApp
-                </a>
+                  <Phone className="w-5 h-5" /> Confirmar e Enviar pelo WhatsApp
+                </button>
                 <button type="button" className="w-full px-6 py-3 rounded-xl font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300" onClick={() => setShowModal(false)}>
                   Cancelar
                 </button>
@@ -515,5 +540,6 @@ const stats = [
         </div>
       </section>
     </div>
-  )
+  );
+  // ...
 }
