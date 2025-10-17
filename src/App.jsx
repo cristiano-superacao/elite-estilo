@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { Menu, X, Scissors, Calendar, Star, MapPin, Phone, Mail, Instagram } from 'lucide-react'
+import { Menu, X, Scissors, Calendar, Star, MapPin, Phone, Mail, Instagram, MessageCircle } from 'lucide-react'
 import { Button } from './components/ui/button.jsx'
 import HomePage from './pages/HomePage'
 import PlansPage from './pages/PlansPage'
@@ -133,7 +133,7 @@ function App() {
                 <h3 className="font-bold text-lg mb-6 text-white">Contato</h3>
                 <ul className="space-y-3 text-slate-400">
                   <li className="flex items-center gap-3 hover:text-white transition-colors">
-                    <Whatsapp className="w-4 h-4" />
+                    <MessageCircle className="w-4 h-4" />
                     <span>(71) 99337-2960</span>
                   </li>
                   <li className="flex items-center gap-3 hover:text-white transition-colors">
