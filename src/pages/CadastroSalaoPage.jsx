@@ -244,6 +244,46 @@ function CadastroSalaoPage() {
             placeholder="Conte um pouco sobre seu salão, especialidades, diferenciais..."
           />
         </div>
+
+        {/* Upload de Foto */}
+        <div>
+          <label className="block text-sm font-medium mb-2">Foto Principal do Salão</label>
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+            <Upload className="w-8 h-8 mx-auto text-gray-400 mb-4" />
+            <p className="text-sm text-gray-600 mb-2">
+              Clique para adicionar uma foto ou arraste aqui
+            </p>
+            <p className="text-xs text-gray-500">
+              PNG, JPG até 5MB (será configurado após aprovação)
+            </p>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0]
+                if (file) {
+                  setDadosSalao(prev => ({ ...prev, imagem: file }))
+                }
+              }}
+              className="hidden"
+              id="upload-foto"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-2"
+              onClick={() => document.getElementById('upload-foto').click()}
+            >
+              Escolher Arquivo
+            </Button>
+            {dadosSalao.imagem && (
+              <p className="text-sm text-green-600 mt-2">
+                ✅ {dadosSalao.imagem.name} selecionado
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
       <Button 
