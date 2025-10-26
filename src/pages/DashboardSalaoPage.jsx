@@ -73,6 +73,15 @@ function DashboardSalaoPage() {
               <Button
                 variant="outline"
                 size="sm"
+                onClick={() => navigate('/database-config')}
+                className="flex items-center gap-2 mr-2 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+              >
+                <Settings className="w-4 h-4" />
+                Banco
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => navigate('/configuracao-salao')}
                 className="flex items-center gap-2 mr-2"
               >

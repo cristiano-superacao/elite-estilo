@@ -10,6 +10,7 @@ import DashboardSalaoPage from './pages/DashboardSalaoPage.jsx'
 import SalaoDetalhePage from './pages/SalaoDetalhePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import ConfiguracaoSalaoPage from './pages/ConfiguracaoSalaoPage.jsx'
+import DatabaseConfigPage from './pages/DatabaseConfigPage.jsx'
 import './App.css'
 
 function App() {
@@ -113,6 +114,7 @@ function App() {
           <Route path="/cadastro-salao" element={<CadastroSalaoPage />} />
           <Route path="/dashboard-salao" element={<DashboardSalaoPage />} />
           <Route path="/configuracao-salao" element={<ConfiguracaoSalaoPage />} />
+          <Route path="/database-config" element={<DatabaseConfigPage />} />
           <Route path="/salao/:salaoId" element={<SalaoDetalhePage />} />
         </Routes>
         {/* Footer */}
