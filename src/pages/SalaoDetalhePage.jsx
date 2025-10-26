@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, Star, MapPin, Phone, Clock, User, Scissors, Calendar, MessageCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button.jsx'
+import { Button } from '@/components/ui/button'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 

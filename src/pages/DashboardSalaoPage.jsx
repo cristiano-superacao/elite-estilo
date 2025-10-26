@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Calendar, Users, Clock, Star, Plus, Eye, MessageCircle, LogOut, Settings } from 'lucide-react'
-import { Button } from '@/components/ui/button.jsx'
+import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 

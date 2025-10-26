@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { Menu, X, Scissors, Calendar, Star, MapPin, MessageCircle, Instagram } from 'lucide-react'
-import { Button } from '@/components/ui/button.jsx'
+import { Button } from '@/components/ui/button'
 import HomePage from './pages/HomePage.jsx'
 import PlansPage from './pages/PlansPage.jsx'
 import AgendamentoPage from './pages/AgendamentoPage.jsx'

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ArrowLeft, Upload, MapPin, Phone, Mail, Clock, Plus, X, User, Scissors, Star } from 'lucide-react'
-import { Button } from '@/components/ui/button.jsx'
+import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 

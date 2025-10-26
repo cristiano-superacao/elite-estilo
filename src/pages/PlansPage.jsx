@@ -1,5 +1,5 @@
 import { Check, X, Star, Zap, Crown } from 'lucide-react'
-import { Button } from '@/components/ui/button.jsx'
+import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 
 const plans = [
