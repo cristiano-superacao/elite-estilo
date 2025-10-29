@@ -1,0 +1,261 @@
+// Prisma Schema for Elite & Estilo - Beauty Salon Management System
+// PostgreSQL Database with comprehensive tables for users, salons, plans, appointments, promotions, reviews, and chat
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ====================================
+// USER MANAGEMENT
+// ====================================
+
+enum UserRole {
+  CLIENT      // Regular customer
+  SALON_OWNER // Salon owner/manager
+  ADMIN       // Platform administrator
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String    // Hashed password
+  name          String
+  phone         String?
+  avatar        String?
+  role          UserRole  @default(CLIENT)
+  isActive      Boolean   @default(true)
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  ownedSalons   Salon[]       @relation("SalonOwner")
+  appointments  Appointment[]
+  reviews       Review[]
+  chatMessages  ChatMessage[]
+  favoriteIds   String[]      // Array of salon IDs
+
+  @@index([email])
+  @@index([role])
+  @@map("users")
+}
+
+// ====================================
+// SALON MANAGEMENT
+// ====================================
+
+model Salon {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String?  @db.Text
+  image         String?
+  address       String
+  city          String
+  state         String?
+  zipCode       String?
+  latitude      Float?
+  longitude     Float?
+  phone         String
+  whatsapp      String?
+  email         String?
+  website       String?
+  hours         String   // JSON string with opening hours
+  services      String[] // Array of services offered
+  prices        Json?    // JSON with service prices
+  specialties   String[] // Array of specialties
+  amenities     String[] // Array of amenities (WiFi, Parking, etc)
+  badge         String?  // Featured, Premium, etc
+  color         String?  // Brand color
+  rating        Float    @default(0)
+  reviewCount   Int      @default(0)
+  isActive      Boolean  @default(true)
+  isFeatured    Boolean  @default(false)
+  planId        String?
+  ownerId       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  owner         User          @relation("SalonOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  plan          Plan?         @relation(fields: [planId], references: [id])
+  appointments  Appointment[]
+  reviews       Review[]
+  promotions    Promotion[]
+
+  @@index([slug])
+  @@index([city])
+  @@index([ownerId])
+  @@index([planId])
+  @@map("salons")
+}
+
+// ====================================
+// SUBSCRIPTION PLANS
+// ====================================
+
+enum PlanType {
+  FREE_TRIAL  // 7-day free trial
+  MONTHLY     // Monthly subscription
+  SEMI_ANNUAL // 6-month subscription
+  ANNUAL      // Annual subscription
+}
+
+model Plan {
+  id              String   @id @default(cuid())
+  name            String
+  type            PlanType @unique
+  description     String?  @db.Text
+  price           Float
+  originalPrice   Float?   // For showing discounts
+  duration        Int      // Duration in days
+  features        String[] // Array of features
+  maxAppointments Int      @default(-1) // -1 means unlimited
+  maxPhotos       Int      @default(10)
+  hasPriority     Boolean  @default(false)
+  hasAnalytics    Boolean  @default(false)
+  hasPromotion    Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  discount        Int      @default(0) // Percentage discount
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  salons Salon[]
+
+  @@index([type])
+  @@map("plans")
+}
+
+// ====================================
+// APPOINTMENT MANAGEMENT
+// ====================================
+
+enum AppointmentStatus {
+  PENDING   // Waiting confirmation
+  CONFIRMED // Confirmed by salon
+  CANCELLED // Cancelled by user or salon
+  COMPLETED // Service completed
+  NO_SHOW   // Client didn't show up
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  salonId     String
+  userId      String
+  clientName  String
+  clientPhone String
+  clientEmail String?
+  service     String
+  date        DateTime
+  time        String
+  duration    Int               @default(60) // Duration in minutes
+  price       Float?
+  status      AppointmentStatus @default(PENDING)
+  notes       String?           @db.Text
+  cancelledAt DateTime?
+  cancelledBy String?           // userId who cancelled
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  salon Salon @relation(fields: [salonId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([salonId])
+  @@index([userId])
+  @@index([date])
+  @@index([status])
+  @@map("appointments")
+}
+
+// ====================================
+// PROMOTIONS & SPECIAL OFFERS
+// ====================================
+
+enum PromotionType {
+  PERCENTAGE  // Percentage discount
+  FIXED       // Fixed value discount
+  SPECIAL     // Special offer (e.g., 2x1)
+}
+
+model Promotion {
+  id          String        @id @default(cuid())
+  salonId     String
+  title       String
+  description String        @db.Text
+  type        PromotionType
+  value       Float         // Percentage or fixed value
+  code        String?       @unique // Optional promo code
+  services    String[]      // Applicable services
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean       @default(true)
+  maxUses     Int?          // Maximum number of uses
+  currentUses Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  salon Salon @relation(fields: [salonId], references: [id], onDelete: Cascade)
+
+  @@index([salonId])
+  @@index([code])
+  @@index([startDate])
+  @@index([endDate])
+  @@map("promotions")
+}
+
+// ====================================
+// REVIEWS & RATINGS
+// ====================================
+
+model Review {
+  id        String   @id @default(cuid())
+  salonId   String
+  userId    String
+  rating    Int      // 1 to 5 stars
+  comment   String?  @db.Text
+  service   String?  // Which service was reviewed
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  salon Salon @relation(fields: [salonId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([salonId])
+  @@index([userId])
+  @@index([rating])
+  @@map("reviews")
+}
+
+// ====================================
+// CHAT & MESSAGING SYSTEM
+// ====================================
+
+model ChatMessage {
+  id         String   @id @default(cuid())
+  senderId   String
+  salonId    String   // Chat is always between user and salon
+  message    String   @db.Text
+  isRead     Boolean  @default(false)
+  attachment String?  // URL to attachment if any
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([senderId])
+  @@index([salonId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}

@@ -1,5 +1,13 @@
+-- ====================================
+-- LEGACY SCHEMA - For backwards compatibility
 -- Script de criação de tabelas para Neon/PostgreSQL
-CREATE TABLE salons (
+-- 
+-- NOTE: This is the original schema. For the new comprehensive schema
+-- with users, plans, reviews, promotions, and chat, use:
+-- prisma/migrations/init.sql
+-- ====================================
+
+CREATE TABLE IF NOT EXISTS salons (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100),
   image TEXT,
@@ -20,7 +28,7 @@ CREATE TABLE salons (
   owner VARCHAR(100)
 );
 
-CREATE TABLE appointments (
+CREATE TABLE IF NOT EXISTS appointments (
   id SERIAL PRIMARY KEY,
   salon_id INT REFERENCES salons(id),
   client_name VARCHAR(100),
@@ -28,3 +36,9 @@ CREATE TABLE appointments (
   date DATE,
   hour TIME
 );
+
+-- ====================================
+-- For new installations, use the comprehensive schema:
+-- See: prisma/migrations/init.sql
+-- Or run: npx prisma migrate dev
+-- ====================================
