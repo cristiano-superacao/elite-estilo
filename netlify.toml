@@ -6,6 +6,17 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--production=false"
 
+# Netlify Functions
+[functions]
+  directory = "api"
+  node_bundler = "esbuild"
+
+# API redirects - Must come before SPA redirect
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
 # SPA redirect - React Router
 [[redirects]]
   from = "/*"
