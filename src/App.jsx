@@ -4,6 +4,7 @@ import { Menu, X, Scissors, Calendar, Star, MapPin, Phone, Mail, Instagram, Mess
 import { Button } from './components/ui/button.jsx'
 import HomePage from './pages/HomePage'
 import PlansPage from './pages/PlansPage'
+import SalonsPage from './pages/SalonsPage'
 import './index.css'
 
 function App() {
@@ -32,9 +33,9 @@ function App() {
                 <Link to="/planos" className="text-slate-600 hover:text-primary transition-colors font-medium">
                   Planos
                 </Link>
-                <a href="#saloes" className="text-slate-600 hover:text-primary transition-colors font-medium">
+                <Link to="/saloes" className="text-slate-600 hover:text-primary transition-colors font-medium">
                   Salões
-                </a>
+                </Link>
                 <a href="#promocoes" className="text-slate-600 hover:text-primary transition-colors font-medium">
                   Promoções
                 </a>
@@ -69,13 +70,13 @@ function App() {
                 >
                   Planos
                 </Link>
-                <a
-                  href="#saloes"
+                <Link
+                  to="/saloes"
                   className="text-slate-600 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Salões
-                </a>
+                </Link>
                 <a
                   href="#promocoes"
                   className="text-slate-600 hover:text-primary transition-colors font-medium"
@@ -96,6 +97,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/planos" element={<PlansPage />} />
+            <Route path="/saloes" element={<SalonsPage />} />
           </Routes>
         </main>
 
@@ -123,7 +125,7 @@ function App() {
                 <ul className="space-y-3 text-slate-400">
                   <li><Link to="/" className="hover:text-white transition-colors">Início</Link></li>
                   <li><Link to="/planos" className="hover:text-white transition-colors">Planos</Link></li>
-                  <li><a href="#saloes" className="hover:text-white transition-colors">Salões</a></li>
+                  <li><Link to="/saloes" className="hover:text-white transition-colors">Salões</Link></li>
                   <li><a href="#promocoes" className="hover:text-white transition-colors">Promoções</a></li>
                 </ul>
               </div>
