@@ -21,11 +21,21 @@ Sistema de gestão completo para barbearias e salões de beleza, desenvolvido co
 
 ### Backend
 ✅ **API RESTful** - Node.js/Express com Netlify Functions  
-✅ **Banco de Dados** - PostgreSQL (Neon) na nuvem  
+✅ **Banco de Dados** - PostgreSQL (Neon) com Prisma ORM  
+✅ **Modelo Completo de Dados:**
+  - 👥 Users (clientes, donos de salões, admins)
+  - 💈 Salons (informações completas dos estabelecimentos)
+  - 💳 Plans (planos de assinatura: Gratuito, Mensal, Semestral, Anual)
+  - 📅 Appointments (agendamentos com controle de status)
+  - 🎉 Promotions (promoções e ofertas especiais)
+  - ⭐ Reviews (avaliações e feedback dos clientes)
+  - 💬 Chat Messages (sistema de mensagens)
+
 ✅ **Endpoints:**
   - `GET /api/salons` - Lista todos os salões
   - `GET /api/salons/search?q=termo` - Busca salões por nome, cidade ou serviço
   - `POST /api/appointments` - Cria agendamento
+  - Documentação completa em [DATABASE.md](./DATABASE.md)
 
 ---
 
@@ -42,7 +52,8 @@ Sistema de gestão completo para barbearias e salões de beleza, desenvolvido co
 ### Backend
 - **Node.js 20** - Runtime JavaScript
 - **Express.js** - Framework web minimalista
-- **PostgreSQL** - Banco de dados relacional
+- **PostgreSQL 15+** - Banco de dados relacional
+- **Prisma ORM** - ORM type-safe e moderno
 - **Neon** - PostgreSQL serverless na nuvem
 - **Netlify Functions** - Serverless backend
 
@@ -70,43 +81,34 @@ npm install
 ### 3. Configure as Variáveis de Ambiente
 Crie um arquivo `.env` na raiz do projeto:
 ```env
-NEON_DATABASE_URL="postgresql://usuario:senha@ep-endereco.neon.tech/dbname?sslmode=require"
+DATABASE_URL="postgresql://usuario:senha@ep-endereco.neon.tech/dbname?sslmode=require"
 NODE_ENV="development"
 ```
 
 ### 4. Configure o Banco de Dados
-Execute o script SQL em `api/db.sql` no seu banco Neon:
-```sql
-CREATE TABLE salons (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100),
-  image TEXT,
-  address VARCHAR(200),
-  city VARCHAR(100),
-  rating NUMERIC(2,1),
-  reviews INT,
-  phone VARCHAR(20),
-  whatsapp VARCHAR(20),
-  hours VARCHAR(100),
-  services TEXT[],
-  prices JSONB,
-  specialties TEXT[],
-  badge VARCHAR(50),
-  color VARCHAR(50),
-  description TEXT,
-  amenities TEXT[],
-  owner VARCHAR(100)
-);
 
-CREATE TABLE appointments (
-  id SERIAL PRIMARY KEY,
-  salon_id INT REFERENCES salons(id),
-  client_name VARCHAR(100),
-  service VARCHAR(100),
-  date DATE,
-  hour TIME
-);
+**Opção A: Usando Prisma ORM (Recomendado)**
+
+```bash
+# Gerar Prisma Client
+npm run db:generate
+
+# Criar e aplicar migrações
+npm run db:migrate
+
+# Popular banco com dados de exemplo (opcional)
+npm run db:seed
 ```
+
+**Opção B: Usando SQL Direto**
+
+Execute o script SQL completo em `prisma/migrations/init.sql` no seu banco Neon via psql ou interface web:
+
+```bash
+psql $DATABASE_URL < prisma/migrations/init.sql
+```
+
+Para mais detalhes, veja [DATABASE.md](./DATABASE.md) e [prisma/README.md](./prisma/README.md).
 
 ### 5. Desenvolvimento Local
 ```bash
@@ -155,10 +157,20 @@ netlify deploy --prod --dir=dist
 ```
 elite-estilo/
 ├── api/                          # Backend Serverless
-│   ├── db.js                     # Conexão PostgreSQL/Neon
-│   ├── db.sql                    # Script de criação de tabelas
-│   └── salons.js                 # API Express (Netlify Function)
+│   ├── database.js               # API com funções helper do Prisma
+│   ├── prisma-salons.js          # Netlify Function com Prisma
+│   ├── db.js                     # Conexão PostgreSQL/Neon (legacy)
+│   ├── db.sql                    # Script legacy (veja prisma/migrations)
+│   └── salons.js                 # API Express (Netlify Function - legacy)
+├── prisma/                       # Prisma ORM
+│   ├── schema.prisma             # Schema do banco de dados
+│   ├── migrations/               # Migrações SQL
+│   │   └── init.sql              # Schema completo com triggers
+│   ├── example-queries.js        # Exemplos de uso do Prisma
+│   └── README.md                 # Documentação do Prisma
 ├── src/
+│   ├── lib/
+│   │   └── prisma.js             # Cliente Prisma singleton
 │   ├── assets/                   # Imagens e recursos estáticos
 │   │   └── images.js             # Exportações de imagens
 │   ├── components/
@@ -174,7 +186,9 @@ elite-estilo/
 ├── dist/                         # Build de produção
 ├── .env                          # Variáveis de ambiente (não commitado)
 ├── .env.example                  # Exemplo de variáveis
+├── DATABASE.md                   # Documentação completa do banco
 ├── netlify.toml                  # Configuração Netlify
+├── prisma.config.ts              # Configuração Prisma
 ├── tailwind.config.js            # Configuração Tailwind
 ├── vite.config.js                # Configuração Vite
 ├── package.json                  # Dependências e scripts
