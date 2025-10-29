@@ -24,7 +24,26 @@ CREATE TABLE appointments (
   id SERIAL PRIMARY KEY,
   salon_id INT REFERENCES salons(id),
   client_name VARCHAR(100),
+  client_phone VARCHAR(20),
+  client_email VARCHAR(100),
   service VARCHAR(100),
   date DATE,
-  hour TIME
+  hour TIME,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE promotions (
+  id SERIAL PRIMARY KEY,
+  salon_id INT REFERENCES salons(id),
+  title VARCHAR(200),
+  description TEXT,
+  discount INT,
+  original_price NUMERIC(10,2),
+  discounted_price NUMERIC(10,2),
+  valid_until DATE,
+  image TEXT,
+  popular BOOLEAN DEFAULT false,
+  active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
