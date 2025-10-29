@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap, Search, X, Phone } from 'lucide-react'
+import { Star, MapPin, Clock, Tag, Calendar, ArrowRight, Users, Trophy, Shield, Search, X, Phone, Sparkles, Zap } from 'lucide-react'
 import { Button } from '../components/ui/button.jsx'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
+import HeroCarousel from '../components/HeroCarousel.jsx'
 // import { salonsDatabase, searchSalons } from '../data/salons.js'
 import { salon1, salon2, salon3 } from '../assets/images.js'
 
@@ -11,27 +12,6 @@ export default function HomePage() {
     const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!%0A%0A*Cliente:* ${clientName || ''}%0A*Serviço:* ${service}%0A*Data:* ${date}%0A*Horário:* ${hour}`;
     return `https://wa.me/${salon.whatsapp}?text=${msg}`;
   }
-
-  const carouselImages = [
-    {
-      src: salon1,
-      title: 'Transforme seu Visual',
-      subtitle: 'Encontre os melhores salões e barbearias da sua região',
-      cta: 'Explorar Salões'
-    },
-    {
-      src: salon2,
-      title: 'Profissionais Qualificados',
-      subtitle: 'Agende seus serviços com facilidade e praticidade',
-      cta: 'Agendar Agora'
-    },
-    {
-      src: salon3,
-      title: 'Experiência Única',
-      subtitle: 'Atendimento de qualidade e ambiente acolhedor',
-      cta: 'Conhecer Planos'
-    }
-  ];
 
   const promotions = [
     {
@@ -79,7 +59,6 @@ const stats = [
   { icon: Shield, value: '100%', label: 'Segurança' }
 ]
 
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [search, setSearch] = useState("");
   const [filteredSalons, setFilteredSalons] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -104,116 +83,10 @@ const stats = [
     }
   }, [search]);
 
-  // Auto-play carousel
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)
-  }
-
   return (
     <div className="min-h-screen">
       {/* Hero Carousel */}
-      <section className="relative h-[90vh] overflow-hidden bg-slate-900">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.7 }}
-            className="absolute inset-0"
-          >
-            <img
-              src={carouselImages[currentSlide].src}
-              alt={carouselImages[currentSlide].title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-start">
-              <div className="container mx-auto px-6">
-                <div className="max-w-2xl text-white">
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                    className="flex items-center gap-2 mb-4"
-                  >
-                    <Sparkles className="w-5 h-5 text-yellow-400" />
-                    <span className="text-yellow-400 font-medium">Experiência Premium</span>
-                  </motion.div>
-                  <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                    className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
-                  >
-                    {carouselImages[currentSlide].title}
-                  </motion.h1>
-                  <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-xl md:text-2xl mb-8 text-slate-200 leading-relaxed"
-                  >
-                    {carouselImages[currentSlide].subtitle}
-                  </motion.p>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                    className="flex flex-col sm:flex-row gap-4"
-                  >
-                    <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all group">
-                      {carouselImages[currentSlide].cta}
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                    <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold backdrop-blur-sm">
-                      Saiba Mais
-                    </Button>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation Controls */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all backdrop-blur-sm"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all backdrop-blur-sm"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-
-        {/* Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3">
-          {carouselImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`h-3 rounded-full transition-all ${
-                index === currentSlide ? 'bg-white w-8' : 'bg-white/50 w-3'
-              }`}
-            />
-          ))}
-        </div>
-      </section>
+      <HeroCarousel />
 
       {/* Stats Section */}
       <section className="py-20 bg-white">
