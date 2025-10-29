@@ -19,7 +19,10 @@ Execute o script SQL para criar as tabelas:
 
 ```bash
 # Conecte ao seu banco Neon e execute:
-psql $DATABASE_URL < api/db.sql
+# NOTA: Nunca exponha DATABASE_URL em comandos visíveis. Use via arquivo .env
+psql "$(cat .env | grep DATABASE_URL | cut -d= -f2-)" < api/db.sql
+
+# Ou use a interface web do Neon para executar o conteúdo de api/db.sql
 ```
 
 ### 3. Inserir Dados de Exemplo

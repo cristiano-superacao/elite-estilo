@@ -189,9 +189,10 @@ INSERT INTO plans (name, price, duration, description, features, highlight, butt
   );
 
 -- Inserir agendamentos de exemplo
+-- Status válidos: pending, confirmed, completed, cancelled
 INSERT INTO appointments (salon_id, client_name, client_email, client_phone, service, date, hour, status, notes) VALUES
-  (1, 'Carlos Mendes', 'carlos@email.com', '(71) 98765-4321', 'Corte + Barba', '2025-02-15', '14:30', 'pending', 'Prefere corte degradê'),
-  (1, 'Roberto Silva', 'roberto@email.com', '(71) 97654-3210', 'Corte', '2025-02-15', '15:30', 'confirmed', NULL),
+  (1, 'Carlos Mendes', 'carlos@email.com', '(71) 98765-4321', 'Corte + Barba', '2025-02-15', '14:30', 'pending', 'Prefere corte degrade'),
+  (1, 'Roberto Silva', 'roberto@email.com', '(71) 97654-3210', 'Corte', '2025-02-15', '15:30', 'pending', NULL),
   (2, 'Juliana Costa', 'juliana@email.com', '(71) 96543-2109', 'Coloração + Corte', '2025-02-16', '10:00', 'pending', 'Quer loiro platinado'),
   (3, 'Fernanda Lima', 'fernanda@email.com', '(71) 95432-1098', 'Hidratação + Escova', '2025-02-16', '14:00', 'pending', NULL),
   (1, 'Marcos Paulo', 'marcos@email.com', '(71) 94321-0987', 'Barba', '2025-02-17', '16:00', 'pending', NULL),

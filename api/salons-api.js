@@ -2,6 +2,36 @@
 import pool from './db.js';
 
 export const salonRoutes = (app) => {
+  // GET /api/salons/search - Busca com múltiplos critérios (deve vir antes de /api/salons/:id)
+  app.get('/api/salons/search', async (req, res) => {
+    try {
+      const { q } = req.query;
+      
+      if (!q) {
+        return res.status(400).json({ error: 'Parâmetro de busca "q" é obrigatório' });
+      }
+
+      const result = await pool.query(
+        `SELECT * FROM salons 
+         WHERE name ILIKE $1 
+         OR city ILIKE $1 
+         OR $2 = ANY(services)
+         OR description ILIKE $1
+         ORDER BY rating DESC`,
+        [`%${q}%`, q]
+      );
+
+      res.json({
+        query: q,
+        results: result.rows.length,
+        data: result.rows
+      });
+    } catch (err) {
+      console.error('Error searching salons:', err);
+      res.status(500).json({ error: 'Erro na busca', message: err.message });
+    }
+  });
+
   // GET /api/salons - Lista todos os salões com paginação
   app.get('/api/salons', async (req, res) => {
     try {
@@ -106,36 +136,6 @@ export const salonRoutes = (app) => {
     } catch (err) {
       console.error('Error fetching salon:', err);
       res.status(500).json({ error: 'Erro ao buscar salão', message: err.message });
-    }
-  });
-
-  // GET /api/salons/search - Busca com múltiplos critérios
-  app.get('/api/salons/search', async (req, res) => {
-    try {
-      const { q } = req.query;
-      
-      if (!q) {
-        return res.status(400).json({ error: 'Parâmetro de busca "q" é obrigatório' });
-      }
-
-      const result = await pool.query(
-        `SELECT * FROM salons 
-         WHERE name ILIKE $1 
-         OR city ILIKE $1 
-         OR $2 = ANY(services)
-         OR description ILIKE $1
-         ORDER BY rating DESC`,
-        [`%${q}%`, q]
-      );
-
-      res.json({
-        query: q,
-        results: result.rows.length,
-        data: result.rows
-      });
-    } catch (err) {
-      console.error('Error searching salons:', err);
-      res.status(500).json({ error: 'Erro na busca', message: err.message });
     }
   });
 };
