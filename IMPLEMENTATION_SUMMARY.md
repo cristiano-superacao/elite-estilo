@@ -311,9 +311,8 @@ Recursos de Segurança:
 ## 📞 Suporte
 
 Para dúvidas sobre a implementação:
-- Email: contato@elitestilo.com
-- WhatsApp: (71) 99337-2960
 - GitHub Issues: https://github.com/cristiano-superacao/elite-estilo/issues
+- Documentação completa disponível nos arquivos .md do projeto
 
 ---
 
@@ -334,6 +333,5 @@ O sistema de autenticação mobile foi implementado com sucesso, seguindo as mel
 
 ---
 
-**Implementado por:** GitHub Copilot  
 **Data:** Outubro 2025  
 **Versão:** 1.0.0
