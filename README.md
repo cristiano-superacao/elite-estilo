@@ -8,10 +8,49 @@ Sistema de gestão completo para barbearias e salões de beleza, desenvolvido co
 
 ---
 
+## 📁 Estrutura do Projeto
+
+Este repositório está organizado em módulos independentes para facilitar desenvolvimento e manutenção:
+
+```
+elite-estilo/
+├── frontend/        # React web application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── HeroCarousel.jsx  # ✨ Carrossel hero com 3 slides
+│   │   │   └── ui/
+│   │   ├── pages/
+│   │   ├── assets/
+│   │   └── ...
+│   ├── public/
+│   ├── index.html
+│   ├── package.json
+│   └── README.md    # 📖 Documentação completa do frontend
+│
+├── backend/         # Node.js/Express (Netlify Functions)
+│   ├── functions/   # Serverless functions
+│   │   ├── salons-function.js
+│   │   └── db.js
+│   ├── db/          # Database scripts
+│   │   └── db.sql
+│   └── README.md    # 📖 Documentação completa do backend
+│
+├── mobile/          # React Native app (planejado)
+│   ├── src/
+│   └── README.md    # 📖 Documentação do mobile
+│
+├── docs/            # Documentação técnica
+│   └── README.md    # 📖 Arquitetura e especificações
+│
+└── README.md        # Este arquivo (visão geral)
+```
+
+---
+
 ## 🚀 Funcionalidades
 
 ### Frontend
-✅ **Carrossel Hero** - 3 slides animados com autoplay e controles  
+✅ **Carrossel Hero** - 3 slides animados com autoplay, controles e responsivo (SwiperJS)  
 ✅ **Página de Planos** - 4 opções de planos (Teste Grátis, Mensal, Semestral, Anual)  
 ✅ **Catálogo de Salões** - Busca, filtros, avaliações e informações detalhadas  
 ✅ **Sistema de Agendamento** - Modal interativo com integração WhatsApp  
@@ -33,8 +72,9 @@ Sistema de gestão completo para barbearias e salões de beleza, desenvolvido co
 
 ### Frontend
 - **React 18** - Biblioteca UI
-- **Vite 6** - Build tool ultra-rápido
+- **Vite 7** - Build tool ultra-rápido
 - **TailwindCSS 3** - Framework CSS utility-first
+- **Swiper.js** - Carrossel moderno e responsivo
 - **Framer Motion** - Animações fluidas
 - **Lucide React** - Ícones modernos
 - **React Router DOM** - Roteamento SPA
@@ -48,138 +88,139 @@ Sistema de gestão completo para barbearias e salões de beleza, desenvolvido co
 
 ---
 
-## 📋 Setup e Instalação
+## 🚀 Como Rodar Cada Módulo
+
+### Frontend (React Web)
+
+```bash
+# Navegar para a pasta frontend
+cd frontend
+
+# Instalar dependências
+npm install
+
+# Rodar em desenvolvimento
+npm run dev
+# Acesse: http://localhost:5173
+
+# Build para produção
+npm run build
+npm run preview
+```
+
+📖 **Documentação completa:** [frontend/README.md](frontend/README.md)
+
+### Backend (API Serverless)
+
+```bash
+# Instalar Netlify CLI globalmente
+npm install -g netlify-cli
+
+# Na raiz do projeto, rodar servidor local
+netlify dev
+# Acesse: http://localhost:8888
+
+# Testar endpoints
+curl http://localhost:8888/.netlify/functions/salons-function/salons
+```
+
+📖 **Documentação completa:** [backend/README.md](backend/README.md)
+
+### Mobile (React Native) - Em Planejamento
+
+```bash
+# Navegar para a pasta mobile
+cd mobile
+
+# Instalar dependências (quando implementado)
+npm install
+
+# Rodar no Android/iOS
+npm start
+```
+
+📖 **Documentação completa:** [mobile/README.md](mobile/README.md)
+
+---
+
+## 📋 Setup Inicial
 
 ### Pré-requisitos
 - Node.js 20+
 - npm ou yarn
-- Conta Neon (PostgreSQL)
-- Conta Netlify
+- Conta Neon (PostgreSQL) - [neon.tech](https://neon.tech)
+- Conta Netlify - [netlify.com](https://netlify.com)
 
 ### 1. Clone o Repositório
 ```bash
 git clone https://github.com/cristiano-superacao/elite-estilo.git
-cd elite-estilo/elite-estilo
+cd elite-estilo
 ```
 
-### 2. Instale as Dependências
+### 2. Configure o Frontend
 ```bash
+cd frontend
 npm install
 ```
 
 ### 3. Configure as Variáveis de Ambiente
-Crie um arquivo `.env` na raiz do projeto:
+Crie um arquivo `.env` na **raiz do projeto**:
 ```env
 NEON_DATABASE_URL="postgresql://usuario:senha@ep-endereco.neon.tech/dbname?sslmode=require"
 NODE_ENV="development"
 ```
 
 ### 4. Configure o Banco de Dados
-Execute o script SQL em `api/db.sql` no seu banco Neon:
-```sql
-CREATE TABLE salons (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100),
-  image TEXT,
-  address VARCHAR(200),
-  city VARCHAR(100),
-  rating NUMERIC(2,1),
-  reviews INT,
-  phone VARCHAR(20),
-  whatsapp VARCHAR(20),
-  hours VARCHAR(100),
-  services TEXT[],
-  prices JSONB,
-  specialties TEXT[],
-  badge VARCHAR(50),
-  color VARCHAR(50),
-  description TEXT,
-  amenities TEXT[],
-  owner VARCHAR(100)
-);
-
-CREATE TABLE appointments (
-  id SERIAL PRIMARY KEY,
-  salon_id INT REFERENCES salons(id),
-  client_name VARCHAR(100),
-  service VARCHAR(100),
-  date DATE,
-  hour TIME
-);
-```
+Execute o script SQL em `backend/db/db.sql` no seu banco Neon para criar as tabelas necessárias.
 
 ### 5. Desenvolvimento Local
 ```bash
+# Terminal 1 - Frontend
+cd frontend
 npm run dev
-```
-Acesse: http://localhost:5173
 
-### 6. Build para Produção
-```bash
-npm run build
-npm run preview
+# Terminal 2 - Backend (opcional, para testar API localmente)
+cd ..
+netlify dev
 ```
 
 ---
 
 ## 🚀 Deploy
 
-### Netlify (Automático via Git)
+### Deploy Automático (Recomendado)
 
-1. **Conecte o Repositório GitHub ao Netlify**
+1. **Conecte o repositório GitHub ao Netlify**
 2. **Configure o Build:**
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   - Functions directory: `api`
-   - Node version: `20`
-
-3. **Adicione as Variáveis de Ambiente no Netlify:**
+   ```
+   Base directory: (deixe vazio)
+   Build command: cd frontend && npm ci && npm run build
+   Publish directory: frontend/dist
+   Functions directory: backend/functions
+   ```
+3. **Adicione as variáveis de ambiente no Netlify:**
    - `NEON_DATABASE_URL`
    - `NODE_ENV=production`
 
-4. **Deploy Automático:**
-   - Todo push para `main` dispara deploy automático
+4. **Deploy automático:** Todo push para `main` dispara deploy automático
 
-### Deploy Manual via CLI
+### Deploy Manual
 ```bash
 npm install -g netlify-cli
 netlify login
-cd elite-estilo
-netlify deploy --prod --dir=dist
+netlify deploy --prod
 ```
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura Detalhada
 
-```
-elite-estilo/
-├── api/                          # Backend Serverless
-│   ├── db.js                     # Conexão PostgreSQL/Neon
-│   ├── db.sql                    # Script de criação de tabelas
-│   └── salons.js                 # API Express (Netlify Function)
-├── src/
-│   ├── assets/                   # Imagens e recursos estáticos
-│   │   └── images.js             # Exportações de imagens
-│   ├── components/
-│   │   └── ui/                   # Componentes UI reutilizáveis
-│   │       └── button.jsx
-│   ├── pages/
-│   │   ├── HomePage.jsx          # Página inicial (integrada com API)
-│   │   └── PlansPage.jsx         # Página de planos
-│   ├── App.jsx                   # Componente principal
-│   ├── main.jsx                  # Entry point
-│   └── index.css                 # Estilos globais + Tailwind
-├── public/                       # Arquivos públicos
-├── dist/                         # Build de produção
-├── .env                          # Variáveis de ambiente (não commitado)
-├── .env.example                  # Exemplo de variáveis
-├── netlify.toml                  # Configuração Netlify
-├── tailwind.config.js            # Configuração Tailwind
-├── vite.config.js                # Configuração Vite
-├── package.json                  # Dependências e scripts
-└── README.md                     # Documentação
-```
+Para entender melhor cada módulo, consulte a documentação específica:
+
+- **[frontend/README.md](frontend/README.md)** - Frontend React (componentes, páginas, estilização)
+- **[backend/README.md](backend/README.md)** - Backend API (endpoints, banco de dados, segurança)
+- **[mobile/README.md](mobile/README.md)** - Mobile React Native (planejamento futuro)
+- **[docs/README.md](docs/README.md)** - Documentação técnica (arquitetura, fluxos, padrões)
 
 ---
 
