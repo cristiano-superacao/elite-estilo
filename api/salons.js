@@ -30,13 +30,29 @@ app.get('/salons/search', async (req, res) => {
 
 // Agendar serviço
 app.post('/appointments', async (req, res) => {
-  const { salon_id, client_name, service, date, hour } = req.body;
+  const { salon_id, client_name, client_phone, client_email, service, date, hour, notes } = req.body;
   try {
-    await pool.query(
-      'INSERT INTO appointments (salon_id, client_name, service, date, hour) VALUES ($1, $2, $3, $4, $5)',
-      [salon_id, client_name, service, date, hour]
+    const result = await pool.query(
+      'INSERT INTO appointments (salon_id, client_name, client_phone, client_email, service, date, hour, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
+      [salon_id, client_name, client_phone, client_email, service, date, hour, notes]
     );
-    res.json({ success: true });
+    res.json({ success: true, id: result.rows[0].id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Listar promoções ativas
+app.get('/promotions', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT p.*, s.name as salon_name, s.image as salon_image, s.whatsapp as salon_whatsapp
+      FROM promotions p
+      JOIN salons s ON p.salon_id = s.id
+      WHERE p.active = true AND (p.valid_until IS NULL OR p.valid_until >= CURRENT_DATE)
+      ORDER BY p.popular DESC, p.created_at DESC
+    `);
+    res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
