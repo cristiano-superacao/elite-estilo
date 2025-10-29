@@ -46,8 +46,13 @@ export default function SalonsPage() {
 
   // Utility function to format WhatsApp message
   function getWhatsappUrl(salon, service, date, hour, clientName) {
-    const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!%0A%0A*Cliente:* ${clientName || ''}%0A*Serviço:* ${service}%0A*Data:* ${date}%0A*Horário:* ${hour}`
-    return `https://wa.me/${salon.whatsapp}?text=${msg}`
+    const msg = `Olá, gostaria de agendar um serviço no salão ${salon.name}!\n\n*Cliente:* ${clientName || ''}\n*Serviço:* ${service}\n*Data:* ${date}\n*Horário:* ${hour}`
+    return `https://wa.me/${salon.whatsapp}?text=${encodeURIComponent(msg)}`
+  }
+
+  // Helper function to get today's date in YYYY-MM-DD format
+  function getTodayDateString() {
+    return new Date().toISOString().split('T')[0]
   }
 
   // Clear all filters
@@ -389,7 +394,7 @@ export default function SalonsPage() {
                     className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                     value={selectedDate}
                     onChange={e => setSelectedDate(e.target.value)}
-                    min={new Date().toISOString().split('T')[0]}
+                    min={getTodayDateString()}
                     required
                   />
                 </div>
@@ -408,26 +413,31 @@ export default function SalonsPage() {
                 </div>
 
                 <div className="pt-4 flex flex-col gap-3">
-                  <Button
-                    type="button"
-                    className={`w-full ${selectedService && selectedDate && selectedHour && clientName
-                      ? 'bg-green-500 hover:bg-green-600'
-                      : 'bg-gray-300 cursor-not-allowed'
-                      }`}
-                    disabled={!(selectedService && selectedDate && selectedHour && clientName)}
-                    onClick={() => {
-                      if (selectedService && selectedDate && selectedHour && clientName) {
-                        window.open(
-                          getWhatsappUrl(selectedSalon, selectedService, selectedDate, selectedHour, clientName),
-                          '_blank'
-                        )
-                        setShowModal(false)
-                      }
-                    }}
-                  >
-                    <Phone className="w-5 h-5 mr-2" />
-                    Confirmar pelo WhatsApp
-                  </Button>
+                  {(() => {
+                    const isFormValid = selectedService && selectedDate && selectedHour && clientName
+                    return (
+                      <Button
+                        type="button"
+                        className={`w-full ${isFormValid
+                          ? 'bg-green-500 hover:bg-green-600'
+                          : 'bg-gray-300 cursor-not-allowed'
+                          }`}
+                        disabled={!isFormValid}
+                        onClick={() => {
+                          if (isFormValid) {
+                            window.open(
+                              getWhatsappUrl(selectedSalon, selectedService, selectedDate, selectedHour, clientName),
+                              '_blank'
+                            )
+                            setShowModal(false)
+                          }
+                        }}
+                      >
+                        <Phone className="w-5 h-5 mr-2" />
+                        Confirmar pelo WhatsApp
+                      </Button>
+                    )
+                  })()}
 
                   <Button
                     type="button"
