@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Star, MapPin, Clock, Tag, Calendar, ArrowRight, Sparkles, Users, Trophy, Shield, Zap, Search, X, Phone } from 'lucide-react'
 import { Button } from '../components/ui/button.jsx'
+import { LoadingSpinner } from '../components/ui/LoadingSpinner.jsx'
 import { motion, AnimatePresence } from 'framer-motion'
 // import { salonsDatabase, searchSalons } from '../data/salons.js'
 import { salon1, salon2, salon3 } from '../assets/images.js'
@@ -112,6 +113,7 @@ const stats = [
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingPromotions, setIsLoadingPromotions] = useState(true);
+  const [submitError, setSubmitError] = useState("");
 
   // Atualiza lista ao pesquisar
   useEffect(() => {
@@ -130,7 +132,6 @@ const stats = [
 
   // Carregar promoções
   useEffect(() => {
-    setIsLoadingPromotions(true);
     fetch('/.netlify/functions/salons-function/promotions')
       .then(res => res.json())
       .then(data => {
@@ -467,6 +468,7 @@ const stats = [
                         setClientEmail("");
                         setClientNotes("");
                         setFormErrors({});
+                        setSubmitError("");
                         setShowModal(true);
                       }}
                     >
@@ -605,6 +607,13 @@ const stats = [
                 />
               </div>
 
+              {submitError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-2">
+                  <X className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">{submitError}</p>
+                </div>
+              )}
+
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
@@ -617,6 +626,7 @@ const stats = [
                   onClick={async () => {
                     if (validateForm() && !isSubmitting) {
                       setIsSubmitting(true);
+                      setSubmitError("");
                       try {
                         await fetch('/.netlify/functions/salons-function/appointments', {
                           method: 'POST',
@@ -636,7 +646,7 @@ const stats = [
                         setShowModal(false);
                       } catch (error) {
                         console.error('Erro ao criar agendamento:', error);
-                        alert('Ocorreu um erro ao criar o agendamento. Por favor, tente novamente.');
+                        setSubmitError('Ocorreu um erro ao criar o agendamento. Por favor, tente novamente.');
                       } finally {
                         setIsSubmitting(false);
                       }
@@ -645,10 +655,7 @@ const stats = [
                 >
                   {isSubmitting ? (
                     <>
-                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
+                      <LoadingSpinner className="w-5 h-5" />
                       Processando...
                     </>
                   ) : (
