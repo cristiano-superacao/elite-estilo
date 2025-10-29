@@ -110,6 +110,8 @@ const stats = [
   const [clientEmail, setClientEmail] = useState("");
   const [clientNotes, setClientNotes] = useState("");
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingPromotions, setIsLoadingPromotions] = useState(true);
 
   // Atualiza lista ao pesquisar
   useEffect(() => {
@@ -128,6 +130,7 @@ const stats = [
 
   // Carregar promoções
   useEffect(() => {
+    setIsLoadingPromotions(true);
     fetch('/.netlify/functions/salons-function/promotions')
       .then(res => res.json())
       .then(data => {
@@ -215,6 +218,9 @@ const stats = [
             popular: false
           }
         ]);
+      })
+      .finally(() => {
+        setIsLoadingPromotions(false);
       });
   }, []);
 
@@ -602,9 +608,15 @@ const stats = [
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all text-white shadow-lg hover:shadow-xl ${
+                    isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                  }`}
                   onClick={async () => {
-                    if (validateForm()) {
+                    if (validateForm() && !isSubmitting) {
+                      setIsSubmitting(true);
                       try {
                         await fetch('/.netlify/functions/salons-function/appointments', {
                           method: 'POST',
@@ -624,16 +636,38 @@ const stats = [
                         setShowModal(false);
                       } catch (error) {
                         console.error('Erro ao criar agendamento:', error);
+                        alert('Ocorreu um erro ao criar o agendamento. Por favor, tente novamente.');
+                      } finally {
+                        setIsSubmitting(false);
                       }
                     }
                   }}
                 >
-                  <Phone className="w-5 h-5" /> Confirmar via WhatsApp
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processando...
+                    </>
+                  ) : (
+                    <>
+                      <Phone className="w-5 h-5" /> Confirmar via WhatsApp
+                    </>
+                  )}
                 </button>
                 <button 
-                  type="button" 
-                  className="px-6 py-4 rounded-xl font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300 transition-all" 
-                  onClick={() => setShowModal(false)}
+                  type="button"
+                  disabled={isSubmitting}
+                  className={`px-6 py-4 rounded-xl font-semibold transition-all ${
+                    isSubmitting 
+                      ? 'bg-slate-100 text-slate-400 cursor-not-allowed' 
+                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                  }`}
+                  onClick={() => {
+                    if (!isSubmitting) setShowModal(false);
+                  }}
                 >
                   Cancelar
                 </button>
@@ -675,7 +709,20 @@ const stats = [
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {promotions.length === 0 ? (
+            {isLoadingPromotions ? (
+              // Loading skeleton
+              [1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-3xl shadow-lg overflow-hidden animate-pulse">
+                  <div className="w-full h-48 bg-slate-200"></div>
+                  <div className="p-6 space-y-4">
+                    <div className="h-6 bg-slate-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-slate-200 rounded w-full"></div>
+                    <div className="h-4 bg-slate-200 rounded w-2/3"></div>
+                    <div className="h-10 bg-slate-200 rounded w-full mt-6"></div>
+                  </div>
+                </div>
+              ))
+            ) : promotions.length === 0 ? (
               <div className="col-span-full text-center text-slate-500 text-lg py-12">
                 Nenhuma promoção disponível no momento.
               </div>
