@@ -267,13 +267,31 @@ Contribuições são bem-vindas! Para contribuir:
 
 ---
 
+## 📱 App Mobile (React Native)
+
+O Elite & Estilo agora possui um aplicativo móvel desenvolvido com React Native e Expo!
+
+### Funcionalidades do App Mobile
+- ✅ **Autenticação completa** - Login e registro de usuários
+- ✅ **Armazenamento seguro** - Tokens JWT protegidos com SecureStore
+- ✅ **Validação de dados** - Validação em tempo real com feedback visual
+- ✅ **Navegação fluida** - React Navigation com rotas protegidas
+- ✅ **API integrada** - Consumo da API Node.js/Express
+- 🔜 **Catálogo de salões** - Navegação e busca de salões
+- 🔜 **Sistema de agendamento** - Marcar horários via app
+- 🔜 **Visualização de planos** - Planos e assinaturas
+- 🔜 **Notificações push** - Alertas e lembretes
+
+Para mais informações sobre o app mobile, consulte: [Mobile App README](./mobile/README.md)
+
 ## 🎯 Roadmap
 
-- [ ] Sistema de autenticação (login/registro)
+- [x] Sistema de autenticação (login/registro) - **IMPLEMENTADO**
+- [x] App mobile (React Native) - **IMPLEMENTADO**
+- [x] API de autenticação JWT - **IMPLEMENTADO**
 - [ ] Dashboard administrativo para salões
 - [ ] Chat em tempo real
 - [ ] Notificações push
-- [ ] App mobile (React Native)
 - [ ] Sistema de pagamento integrado
 - [ ] Programa de fidelidade
 - [ ] API pública documentada (Swagger)

@@ -1,4 +1,18 @@
 -- Script de criação de tabelas para Neon/PostgreSQL
+
+-- Tabela de usuários para autenticação
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  phone VARCHAR(20),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_users_email ON users(email);
+
 CREATE TABLE salons (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100),
