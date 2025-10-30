@@ -150,19 +150,19 @@ const faqs = [
 
 export default function PlansPage() {
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-8 sm:py-12">
       {/* Hero Section */}
-      <section className="text-center mb-16">
+      <section className="text-center mb-12 sm:mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="container mx-auto px-4"
+          className="container mx-auto px-4 sm:px-6"
         >
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             Escolha o Plano Ideal
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Encontre o plano perfeito para o seu salão ou barbearia. 
             Começe com 90 dias grátis e veja como podemos transformar seu negócio.
           </p>
@@ -170,8 +170,8 @@ export default function PlansPage() {
       </section>
 
       {/* Plans Grid */}
-      <section className="container mx-auto px-4 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="container mx-auto px-4 sm:px-6 mb-16 sm:mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {plans.map((plan, index) => {
             const IconComponent = plan.icon
             return (
@@ -180,13 +180,13 @@ export default function PlansPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative bg-white rounded-2xl shadow-lg p-6 ${
-                  plan.highlight ? 'ring-2 ring-primary scale-105' : ''
+                className={`relative bg-white rounded-2xl shadow-lg p-5 sm:p-6 ${
+                  plan.highlight ? 'ring-2 ring-primary lg:scale-105' : ''
                 }`}
               >
                 {/* Badge */}
                 {plan.badge && (
-                  <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full text-sm font-bold text-white ${
+                  <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold text-white whitespace-nowrap ${
                     plan.highlight ? 'bg-primary' : 'bg-gray-600'
                   }`}>
                     {plan.badge}
@@ -194,50 +194,50 @@ export default function PlansPage() {
                 )}
 
                 {/* Icon */}
-                <div className="flex justify-center mb-4">
-                  <div className={`p-3 rounded-full ${
+                <div className="flex justify-center mb-3 sm:mb-4 mt-2">
+                  <div className={`p-2.5 sm:p-3 rounded-full ${
                     plan.highlight ? 'bg-primary/10' : 'bg-gray-100'
                   }`}>
-                    <IconComponent className={`w-8 h-8 ${
+                    <IconComponent className={`w-7 h-7 sm:w-8 sm:h-8 ${
                       plan.highlight ? 'text-primary' : 'text-gray-600'
                     }`} />
                   </div>
                 </div>
 
                 {/* Plan Name */}
-                <h3 className="text-2xl font-bold text-center mb-2">{plan.name}</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-center mb-2">{plan.name}</h3>
 
                 {/* Price */}
                 <div className="text-center mb-4">
                   {plan.originalPrice && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-xs sm:text-sm text-gray-500">
                       <span className="line-through">R$ {plan.originalPrice}</span>
                       <span className="ml-2 bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">
                         -{plan.discount}%
                       </span>
                     </div>
                   )}
-                  <div className="flex items-center justify-center">
-                    <span className="text-4xl font-bold">R$ {plan.price}</span>
-                    <span className="text-gray-600 ml-2">/{plan.duration}</span>
+                  <div className="flex items-center justify-center flex-wrap">
+                    <span className="text-3xl sm:text-4xl font-bold">R$ {plan.price}</span>
+                    <span className="text-gray-600 ml-2 text-sm sm:text-base">/{plan.duration}</span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 text-center mb-6 text-sm">
+                <p className="text-gray-600 text-center mb-5 sm:mb-6 text-xs sm:text-sm">
                   {plan.description}
                 </p>
 
                 {/* Features */}
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-3">
+                    <li key={featureIndex} className="flex items-center gap-2.5 sm:gap-3">
                       {feature.included ? (
-                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0" />
                       ) : (
-                        <X className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                        <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
                       )}
-                      <span className={`text-sm ${
+                      <span className={`text-xs sm:text-sm ${
                         feature.included ? 'text-gray-900' : 'text-gray-500'
                       }`}>
                         {feature.text}
@@ -248,7 +248,7 @@ export default function PlansPage() {
 
                 {/* Button */}
                 <Button 
-                  className={`w-full ${
+                  className={`w-full text-sm sm:text-base ${
                     plan.highlight ? 'bg-primary hover:bg-primary/90' : ''
                   }`}
                   variant={plan.highlight ? 'default' : 'outline'}
@@ -262,24 +262,24 @@ export default function PlansPage() {
       </section>
 
       {/* Main Features */}
-      <section className="bg-gray-50 py-20">
-        <div className="container mx-auto px-4">
+      <section className="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Recursos Principais
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600">
               Tudo que você precisa para gerenciar seu negócio
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {mainFeatures.map((feature, index) => {
               const IconComponent = feature.icon
               return (
@@ -291,13 +291,13 @@ export default function PlansPage() {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-primary/10 rounded-full">
-                      <IconComponent className="w-8 h-8 text-primary" />
+                  <div className="flex justify-center mb-3 sm:mb-4">
+                    <div className="p-3 sm:p-4 bg-primary/10 rounded-full">
+                      <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm sm:text-base">{feature.description}</p>
                 </motion.div>
               )
             })}
@@ -306,19 +306,19 @@ export default function PlansPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Perguntas Frequentes
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600">
               Tire suas dúvidas sobre nossos planos
             </p>
           </motion.div>
@@ -331,16 +331,16 @@ export default function PlansPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="mb-6 bg-white rounded-lg shadow-md"
+                className="mb-4 sm:mb-6 bg-white rounded-lg shadow-md"
               >
-                <div className="p-6">
-                  <div className="flex items-start gap-4">
-                    <HelpCircle className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
                         {faq.question}
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 text-sm sm:text-base">
                         {faq.answer}
                       </p>
                     </div>
@@ -353,21 +353,21 @@ export default function PlansPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary text-primary-foreground py-20">
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-primary text-primary-foreground py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">
               Ainda tem dúvidas?
             </h2>
-            <p className="text-xl mb-8">
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8">
               Fale com um de nossos especialistas e descubra como podemos ajudar seu negócio
             </p>
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="secondary" className="text-sm sm:text-base">
               Falar com Especialista
             </Button>
           </motion.div>

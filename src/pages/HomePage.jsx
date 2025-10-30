@@ -123,7 +123,7 @@ const stats = [
   return (
     <div className="min-h-screen">
       {/* Hero Carousel */}
-      <section className="relative h-[90vh] overflow-hidden bg-slate-900">
+      <section className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden bg-slate-900">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -138,24 +138,24 @@ const stats = [
               alt={carouselImages[currentSlide].title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
             <div className="absolute inset-0 flex items-center justify-start">
-              <div className="container mx-auto px-6">
-                <div className="max-w-2xl text-white">
+              <div className="container mx-auto px-4 sm:px-6">
+                <div className="max-w-xl lg:max-w-2xl text-white">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
-                    className="flex items-center gap-2 mb-4"
+                    className="flex items-center gap-2 mb-3 sm:mb-4"
                   >
-                    <Sparkles className="w-5 h-5 text-yellow-400" />
-                    <span className="text-yellow-400 font-medium">Experiência Premium</span>
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
+                    <span className="text-yellow-400 font-medium text-sm sm:text-base">Experiência Premium</span>
                   </motion.div>
                   <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
-                    className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+                    className="text-3xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
                   >
                     {carouselImages[currentSlide].title}
                   </motion.h1>
@@ -163,7 +163,7 @@ const stats = [
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-xl md:text-2xl mb-8 text-slate-200 leading-relaxed"
+                    className="text-base sm:text-xl lg:text-2xl mb-6 sm:mb-8 text-slate-200 leading-relaxed"
                   >
                     {carouselImages[currentSlide].subtitle}
                   </motion.p>
@@ -171,13 +171,13 @@ const stats = [
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
-                    className="flex flex-col sm:flex-row gap-4"
+                    className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                   >
-                    <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all group">
+                    <Button size="lg" className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all group text-sm sm:text-base">
                       {carouselImages[currentSlide].cta}
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                    <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold backdrop-blur-sm">
+                    <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold backdrop-blur-sm text-sm sm:text-base">
                       Saiba Mais
                     </Button>
                   </motion.div>
@@ -190,35 +190,38 @@ const stats = [
         {/* Navigation Controls */}
         <button
           onClick={prevSlide}
-          className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all backdrop-blur-sm"
+          className="absolute left-2 sm:left-4 lg:left-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 sm:p-3 rounded-full transition-all backdrop-blur-sm"
+          aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all backdrop-blur-sm"
+          className="absolute right-2 sm:right-4 lg:right-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 sm:p-3 rounded-full transition-all backdrop-blur-sm"
+          aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         {/* Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3">
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 sm:gap-3">
           {carouselImages.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-3 rounded-full transition-all ${
-                index === currentSlide ? 'bg-white w-8' : 'bg-white/50 w-3'
+              className={`h-2 sm:h-3 rounded-full transition-all ${
+                index === currentSlide ? 'bg-white w-6 sm:w-8' : 'bg-white/50 w-2 sm:w-3'
               }`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon
               return (
@@ -230,11 +233,11 @@ const stats = [
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-purple-600 text-white rounded-2xl mb-4">
-                    <IconComponent className="w-8 h-8" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-purple-600 text-white rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
                   </div>
-                  <div className="text-3xl font-bold text-slate-800 mb-2">{stat.value}</div>
-                  <div className="text-slate-600 font-medium">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-1 sm:mb-2">{stat.value}</div>
+                  <div className="text-slate-600 font-medium text-xs sm:text-sm lg:text-base">{stat.label}</div>
                 </motion.div>
               )
             })}
@@ -243,43 +246,43 @@ const stats = [
       </section>
 
       {/* Salões Cadastrados */}
-      <section id="saloes" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6">
+      <section id="saloes" className="py-12 sm:py-16 lg:py-24 bg-slate-50">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8 sm:mb-12 lg:mb-16"
           >
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium uppercase tracking-wider text-sm">Parceiros Premium</span>
+            <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <span className="text-primary font-medium uppercase tracking-wider text-xs sm:text-sm">Parceiros Premium</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 sm:mb-6 px-4">
               Salões em Destaque
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
               Descubra os melhores profissionais da sua região com avaliações reais e serviços de qualidade
             </p>
             {/* Campo de pesquisa */}
             <div className="flex justify-center mb-4">
-              <div className="relative w-full max-w-md">
+              <div className="relative w-full max-w-md px-4">
                 <input
                   type="text"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-slate-700 text-lg"
-                  placeholder="Pesquisar salões, serviços, cidade..."
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary text-slate-700 text-base sm:text-lg"
+                  placeholder="Pesquisar salões, serviços..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                <Search className="absolute left-7 sm:left-7 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5 pointer-events-none" />
               </div>
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredSalons.length === 0 ? (
-              <div className="col-span-full text-center text-slate-500 text-lg py-12">Nenhum salão encontrado.</div>
+              <div className="col-span-full text-center text-slate-500 text-base sm:text-lg py-12">Nenhum salão encontrado.</div>
             ) : (
               filteredSalons.map((salon, index) => (
                 <motion.div
@@ -288,47 +291,47 @@ const stats = [
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
+                  className="group bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
                 >
                   <div className="relative">
                     <img
                       src={salon.image}
                       alt={salon.name}
-                      className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className={`absolute top-4 left-4 bg-gradient-to-r ${salon.color} text-white px-3 py-1 rounded-full text-sm font-bold`}>
+                    <div className={`absolute top-3 sm:top-4 left-3 sm:left-4 bg-gradient-to-r ${salon.color} text-white px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold`}>
                       {salon.badge}
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-xl font-bold text-slate-800 group-hover:text-primary transition-colors">
+                  <div className="p-4 sm:p-6">
+                    <div className="flex items-start justify-between mb-3 sm:mb-4">
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-800 group-hover:text-primary transition-colors">
                         {salon.name}
                       </h3>
-                      <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-semibold text-slate-700">{salon.rating}</span>
+                      <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg flex-shrink-0">
+                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
+                        <span className="text-xs sm:text-sm font-semibold text-slate-700">{salon.rating}</span>
                         <span className="text-xs text-slate-500">({salon.reviews})</span>
                       </div>
                     </div>
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-3 text-slate-600">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        <span className="text-sm">{salon.address}</span>
+                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                      <div className="flex items-center gap-2 sm:gap-3 text-slate-600">
+                        <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-xs sm:text-sm line-clamp-1">{salon.address}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-slate-600">
-                        <Clock className="w-4 h-4 text-primary" />
-                        <span className="text-sm">{salon.hours}</span>
+                      <div className="flex items-center gap-2 sm:gap-3 text-slate-600">
+                        <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span className="text-xs sm:text-sm">{salon.hours}</span>
                       </div>
                     </div>
-                    <div className="mb-6">
-                      <p className="text-sm font-medium text-slate-700 mb-3">Serviços:</p>
-                      <div className="flex flex-wrap gap-2">
+                    <div className="mb-4 sm:mb-6">
+                      <p className="text-xs sm:text-sm font-medium text-slate-700 mb-2 sm:mb-3">Serviços:</p>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {salon.services.map((service, serviceIndex) => (
                           <span
                             key={serviceIndex}
-                            className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
+                            className="px-2 sm:px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full hover:bg-primary hover:text-white transition-colors"
                           >
                             {service}
                           </span>
@@ -336,7 +339,7 @@ const stats = [
                       </div>
                     </div>
                     <Button
-                      className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white rounded-xl font-semibold group"
+                      className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white rounded-xl font-semibold group text-sm sm:text-base"
                       onClick={() => {
                         setSelectedSalon(salon);
                         setSelectedService("");
@@ -352,20 +355,35 @@ const stats = [
                     </Button>
       {/* Modal de agendamento */}
       {showModal && selectedSalon && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fadeIn">
-            <button className="absolute top-3 right-3 text-slate-400 hover:text-primary" onClick={() => setShowModal(false)}>
-              <X className="w-6 h-6" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md relative animate-fade-in">
+            <button 
+              className="absolute top-3 right-3 text-slate-400 hover:text-primary transition-colors" 
+              onClick={() => setShowModal(false)}
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-slate-800">Agendar em {selectedSalon.name}</h2>
-            <form className="space-y-4" onSubmit={e => { e.preventDefault(); }}>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-slate-800 pr-8">Agendar em {selectedSalon.name}</h2>
+            <form className="space-y-3 sm:space-y-4" onSubmit={e => { e.preventDefault(); }}>
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Seu nome</label>
-                <input type="text" className="w-full border rounded-lg px-3 py-2" value={clientName} onChange={e => setClientName(e.target.value)} required />
+                <label className="block text-slate-700 font-medium mb-1.5 text-sm sm:text-base">Seu nome</label>
+                <input 
+                  type="text" 
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base" 
+                  value={clientName} 
+                  onChange={e => setClientName(e.target.value)} 
+                  required 
+                />
               </div>
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Serviço</label>
-                <select className="w-full border rounded-lg px-3 py-2" value={selectedService} onChange={e => setSelectedService(e.target.value)} required>
+                <label className="block text-slate-700 font-medium mb-1.5 text-sm sm:text-base">Serviço</label>
+                <select 
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base" 
+                  value={selectedService} 
+                  onChange={e => setSelectedService(e.target.value)} 
+                  required
+                >
                   <option value="">Selecione...</option>
                   {selectedSalon.services.map((service, idx) => (
                     <option key={idx} value={service}>{service}</option>
@@ -373,17 +391,29 @@ const stats = [
                 </select>
               </div>
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Data</label>
-                <input type="date" className="w-full border rounded-lg px-3 py-2" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} required />
+                <label className="block text-slate-700 font-medium mb-1.5 text-sm sm:text-base">Data</label>
+                <input 
+                  type="date" 
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base" 
+                  value={selectedDate} 
+                  onChange={e => setSelectedDate(e.target.value)} 
+                  required 
+                />
               </div>
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Horário</label>
-                <input type="time" className="w-full border rounded-lg px-3 py-2" value={selectedHour} onChange={e => setSelectedHour(e.target.value)} required />
+                <label className="block text-slate-700 font-medium mb-1.5 text-sm sm:text-base">Horário</label>
+                <input 
+                  type="time" 
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm sm:text-base" 
+                  value={selectedHour} 
+                  onChange={e => setSelectedHour(e.target.value)} 
+                  required 
+                />
               </div>
-              <div className="pt-2 flex flex-col gap-2">
+              <div className="pt-2 flex flex-col gap-2 sm:gap-3">
                 <button
                   type="button"
-                  className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all text-white ${selectedService && selectedDate && selectedHour && clientName ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'}`}
+                  className={`w-full inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all text-white text-sm sm:text-base ${selectedService && selectedDate && selectedHour && clientName ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-300 cursor-not-allowed'}`}
                   disabled={!(selectedService && selectedDate && selectedHour && clientName)}
                   onClick={async () => {
                     if (selectedService && selectedDate && selectedHour && clientName) {
@@ -403,9 +433,13 @@ const stats = [
                     }
                   }}
                 >
-                  <Phone className="w-5 h-5" /> Confirmar e Enviar pelo WhatsApp
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" /> Confirmar e Enviar pelo WhatsApp
                 </button>
-                <button type="button" className="w-full px-6 py-3 rounded-xl font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300" onClick={() => setShowModal(false)}>
+                <button 
+                  type="button" 
+                  className="w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors text-sm sm:text-base" 
+                  onClick={() => setShowModal(false)}
+                >
                   Cancelar
                 </button>
               </div>
@@ -422,28 +456,28 @@ const stats = [
       </section>
 
       {/* Promoções */}
-      <section id="promocoes" className="py-24 bg-white">
-        <div className="container mx-auto px-6">
+      <section id="promocoes" className="py-12 sm:py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8 sm:mb-12 lg:mb-16"
           >
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Zap className="w-5 h-5 text-orange-500" />
-              <span className="text-orange-500 font-medium uppercase tracking-wider text-sm">Ofertas Limitadas</span>
+            <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
+              <span className="text-orange-500 font-medium uppercase tracking-wider text-xs sm:text-sm">Ofertas Limitadas</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 sm:mb-6 px-4">
               Promoções Especiais
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto px-4">
               Aproveite as melhores ofertas dos nossos parceiros com descontos exclusivos
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {promotions.map((promo, index) => (
               <motion.div
                 key={promo.id}
@@ -451,49 +485,49 @@ const stats = [
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
+                className="group bg-white rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover"
               >
                 <div className="relative">
                   <img
                     src={promo.image}
                     alt={promo.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-gradient-to-r from-red-500 to-pink-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">
                     -{promo.discount}%
                   </div>
                   {promo.popular && (
-                    <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold">
                       POPULAR
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h4 className="font-bold text-lg">{promo.salon}</h4>
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
+                    <h4 className="font-bold text-base sm:text-lg">{promo.salon}</h4>
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-primary transition-colors">
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-2 group-hover:text-primary transition-colors">
                     {promo.title}
                   </h3>
-                  <p className="text-slate-600 text-sm mb-6 leading-relaxed">{promo.description}</p>
+                  <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed">{promo.description}</p>
                   
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-slate-400 line-through text-lg font-medium">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <span className="text-slate-400 line-through text-base sm:text-lg font-medium">
                       R$ {promo.originalPrice}
                     </span>
-                    <span className="text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                    <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                       R$ {promo.discountedPrice}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-slate-600 mb-6">
-                    <Tag className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium">Válido até {promo.validUntil}</span>
+                  <div className="flex items-center gap-2 text-slate-600 mb-4 sm:mb-6">
+                    <Tag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium">Válido até {promo.validUntil}</span>
                   </div>
 
-                  <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl font-semibold group">
+                  <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl font-semibold group text-sm sm:text-base">
                     Aproveitar Oferta
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -505,11 +539,11 @@ const stats = [
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 bg-gradient-to-br from-primary via-purple-600 to-indigo-700 text-white relative overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-primary via-purple-600 to-indigo-700 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="w-full h-full bg-black/5"></div>
         </div>
-        <div className="container mx-auto px-6 relative">
+        <div className="container mx-auto px-4 sm:px-6 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -517,22 +551,22 @@ const stats = [
             viewport={{ once: true }}
             className="text-center max-w-4xl mx-auto"
           >
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles className="w-6 h-6 text-yellow-400" />
-              <span className="text-yellow-400 font-medium uppercase tracking-wider">Comece Agora</span>
+            <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+              <span className="text-yellow-400 font-medium uppercase tracking-wider text-sm sm:text-base">Comece Agora</span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-4">
               Pronto para Transformar Seu Negócio?
             </h2>
-            <p className="text-xl md:text-2xl mb-10 text-white/90 leading-relaxed">
+            <p className="text-base sm:text-xl lg:text-2xl mb-8 sm:mb-10 text-white/90 leading-relaxed px-4">
               Junte-se a mais de 1.500 clientes satisfeitos e revolucione a gestão do seu salão
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all group">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all group text-sm sm:text-base">
                 Começar Teste Grátis
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold backdrop-blur-sm">
+              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold backdrop-blur-sm text-sm sm:text-base">
                 Falar com Especialista
               </Button>
             </div>
