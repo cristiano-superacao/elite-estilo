@@ -154,11 +154,3 @@
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
-
-/* Improved mobile touch targets */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}

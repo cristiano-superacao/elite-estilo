@@ -186,7 +186,7 @@ export default function PlansPage() {
               >
                 {/* Badge */}
                 {plan.badge && (
-                  <div className={`absolute -top-2.5 sm:-top-3 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold text-white whitespace-nowrap ${
+                  <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold text-white whitespace-nowrap ${
                     plan.highlight ? 'bg-primary' : 'bg-gray-600'
                   }`}>
                     {plan.badge}

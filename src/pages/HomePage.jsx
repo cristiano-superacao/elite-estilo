@@ -275,7 +275,7 @@ const stats = [
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
-                <Search className="absolute left-7 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5" />
+                <Search className="absolute left-7 sm:left-7 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5 pointer-events-none" />
               </div>
             </div>
           </motion.div>
@@ -312,7 +312,7 @@ const stats = [
                       <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg flex-shrink-0">
                         <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
                         <span className="text-xs sm:text-sm font-semibold text-slate-700">{salon.rating}</span>
-                        <span className="text-xs text-slate-500 hidden sm:inline">({salon.reviews})</span>
+                        <span className="text-xs text-slate-500">({salon.reviews})</span>
                       </div>
                     </div>
                     <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
